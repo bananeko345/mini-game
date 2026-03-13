@@ -2,8 +2,8 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS ARCADE - 即プレイゲームポータル</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEXUS ARCADE - 全機種対応ゲームポータル</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
         
@@ -11,6 +11,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         body {
@@ -18,6 +22,7 @@
             background: #0a0a0f;
             color: #fff;
             overflow-x: hidden;
+            touch-action: pan-y;
         }
         
         .glitch-bg {
@@ -50,7 +55,7 @@
         }
         
         header {
-            padding: 20px 50px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -58,14 +63,14 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.9);
+            background: rgba(10, 10, 15, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 255, 255, 0.1);
         }
         
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 900;
             background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
             -webkit-background-clip: text;
@@ -81,11 +86,11 @@
         .play-now-btn {
             background: linear-gradient(45deg, #00ffff, #ff00ff);
             border: none;
-            padding: 15px 40px;
+            padding: 10px 20px;
             color: #000;
             font-weight: 900;
-            font-size: 1.1rem;
-            border-radius: 30px;
+            font-size: 0.9rem;
+            border-radius: 20px;
             cursor: pointer;
             animation: pulse 2s infinite;
             font-family: 'Orbitron', sans-serif;
@@ -97,12 +102,12 @@
         }
         
         .hero {
-            height: 100vh;
+            min-height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
+            padding: 80px 20px 40px;
         }
         
         .hero-content {
@@ -112,13 +117,14 @@
         
         .glitch-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
+            font-size: 3rem;
             font-weight: 900;
             text-shadow: 
                 0.05em 0 0 rgba(255, 0, 0, 0.75),
                 -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
                 0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
             animation: glitch 2s infinite;
+            line-height: 1.2;
         }
         
         @keyframes glitch {
@@ -132,52 +138,59 @@
         }
         
         .hero-subtitle {
-            font-size: 1.5rem;
-            margin: 20px 0;
+            font-size: 1rem;
+            margin: 15px 0;
             color: #00ffff;
-            letter-spacing: 5px;
+            letter-spacing: 3px;
+        }
+        
+        .device-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 2rem;
         }
         
         .games-section {
-            padding: 100px 20px;
+            padding: 40px 15px;
             max-width: 1400px;
             margin: 0 auto;
         }
         
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
+            font-size: 2rem;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             color: #fff;
         }
         
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
         
         .game-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
             border: 2px solid rgba(0, 255, 255, 0.3);
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s;
             cursor: pointer;
             position: relative;
         }
         
-        .game-card:hover {
-            transform: translateY(-10px) scale(1.02);
+        .game-card:hover, .game-card:active {
+            transform: translateY(-5px) scale(1.02);
             border-color: #00ffff;
-            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
         }
         
         .game-preview {
             width: 100%;
-            height: 250px;
-            background: #000;
+            height: 180px;
             position: relative;
             overflow: hidden;
         }
@@ -188,7 +201,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -196,19 +209,19 @@
             transition: opacity 0.3s;
         }
         
-        .game-card:hover .play-overlay {
+        .game-card:hover .play-overlay, .game-card:active .play-overlay {
             opacity: 1;
         }
         
         .play-icon {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(45deg, #00ffff, #ff00ff);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             animation: bounce 1s infinite;
         }
         
@@ -218,41 +231,52 @@
         }
         
         .game-info {
-            padding: 20px;
+            padding: 15px;
         }
         
         .game-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #00ffff;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .game-desc {
             color: #aaa;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .controls-hint {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        
+        .control-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            color: #ffff00;
         }
         
         .play-btn {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: linear-gradient(45deg, #00ffff, #ff00ff);
             border: none;
             color: #000;
             font-weight: 900;
-            font-size: 1.1rem;
-            border-radius: 10px;
+            font-size: 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.2s;
             font-family: 'Orbitron', sans-serif;
         }
         
-        .play-btn:hover {
-            transform: scale(1.05);
-        }
-        
-        /* ゲームモーダル */
+        /* モーダル */
         .modal {
             display: none;
             position: fixed;
@@ -260,92 +284,152 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.98);
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            padding: 10px;
         }
         
         .modal.active {
             display: flex;
         }
         
-        .game-container {
-            width: 90%;
-            max-width: 1000px;
+        .game-wrapper {
+            width: 100%;
+            max-width: 900px;
             background: #1a1a2e;
-            border-radius: 20px;
+            border-radius: 15px;
             border: 2px solid #00ffff;
             overflow: hidden;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            max-height: 95vh;
         }
         
         .game-header {
-            padding: 20px;
+            padding: 15px;
             background: linear-gradient(90deg, #00ffff, #ff00ff);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
         }
         
         .game-header h2 {
             color: #000;
             font-family: 'Orbitron', sans-serif;
             margin: 0;
+            font-size: 1.2rem;
         }
         
         .close-btn {
             background: #000;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            background: #000;
         }
         
         #gameCanvas {
             width: 100%;
-            height: 600px;
-            background: #000;
+            height: 100%;
             display: block;
+            touch-action: none;
         }
         
-        .game-controls {
-            padding: 20px;
+        .game-controls-bar {
+            padding: 10px;
             background: #0f0f1e;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
+            flex-shrink: 0;
         }
         
-        .control-group {
+        .score-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: #ffff00;
+        }
+        
+        .control-buttons {
             display: flex;
             gap: 10px;
-            align-items: center;
         }
         
         .control-btn {
-            padding: 10px 20px;
+            padding: 8px 15px;
             background: rgba(0, 255, 255, 0.2);
             border: 1px solid #00ffff;
             color: #00ffff;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 0.9rem;
         }
         
-        .score-display {
-            font-family: 'Orbitron', sans-serif;
+        /* タッチコントロール */
+        .touch-controls {
+            display: none;
+            padding: 10px;
+            background: #0a0a0f;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .touch-controls.active {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .touch-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid #00ffff;
+            border-radius: 50%;
+            color: #00ffff;
             font-size: 1.5rem;
-            color: #ffff00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
         }
         
-        /* ニュースセクション */
+        .touch-btn:active {
+            background: rgba(0, 255, 255, 0.5);
+            transform: scale(0.95);
+        }
+        
+        .touch-btn.large {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 0, 102, 0.3);
+            border-color: #ff0066;
+            color: #ff0066;
+        }
+        
+        /* ニュース */
         .news-section {
-            padding: 50px 20px;
+            padding: 40px 15px;
             background: linear-gradient(180deg, transparent, rgba(0,255,255,0.05), transparent);
         }
         
@@ -358,22 +442,22 @@
             background: rgba(0,0,0,0.7);
             border: 2px solid rgba(0,255,255,0.3);
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 30px;
             overflow: hidden;
         }
         
         .ticker-content {
             display: flex;
-            animation: ticker 25s linear infinite;
+            animation: ticker 20s linear infinite;
             white-space: nowrap;
         }
         
         .ticker-item {
-            padding: 0 50px;
+            padding: 0 30px;
             color: #00ffff;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
         
         @keyframes ticker {
@@ -383,51 +467,50 @@
         
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
         }
         
         .news-card {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 10px;
+            padding: 15px;
             transition: all 0.3s;
         }
         
         .news-card:hover {
             border-color: #00ffff;
-            transform: translateY(-5px);
-            background: rgba(0,255,255,0.05);
+            transform: translateY(-3px);
         }
         
         .news-date {
             color: #ff00ff;
             font-weight: bold;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
         }
         
         .news-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
-            margin-bottom: 10px;
-            color: #fff;
+            margin-bottom: 8px;
         }
         
         .news-excerpt {
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
         
         .new-badge {
             display: inline-block;
             background: #ff0066;
             color: #fff;
-            padding: 3px 10px;
+            padding: 2px 8px;
             border-radius: 10px;
-            font-size: 0.7rem;
-            margin-left: 10px;
+            font-size: 0.6rem;
+            margin-left: 5px;
             animation: blink 1s infinite;
         }
         
@@ -437,16 +520,31 @@
         }
         
         footer {
-            padding: 50px;
+            padding: 30px 15px;
             text-align: center;
             background: rgba(0,0,0,0.5);
             border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
         }
         
-        @media (max-width: 768px) {
-            .glitch-text { font-size: 3rem; }
-            #gameCanvas { height: 400px; }
-            .games-grid { grid-template-columns: 1fr; }
+        /* レスポンシブ */
+        @media (min-width: 768px) {
+            .glitch-text { font-size: 4rem; }
+            .hero-subtitle { font-size: 1.3rem; }
+            .games-grid { grid-template-columns: repeat(2, 1fr); }
+            .game-wrapper { max-height: 90vh; }
+        }
+        
+        @media (min-width: 1024px) {
+            .games-grid { grid-template-columns: repeat(3, 1fr); }
+            .glitch-text { font-size: 5rem; }
+        }
+        
+        /* キーボード表示時の調整 */
+        @media (max-height: 600px) {
+            .touch-controls { padding: 5px; }
+            .touch-btn { width: 50px; height: 50px; font-size: 1.2rem; }
+            .touch-btn.large { width: 60px; height: 60px; }
         }
     </style>
 </head>
@@ -461,15 +559,15 @@
     
     <section class="hero">
         <div class="hero-content">
-            <h1 class="glitch-text">PLAY NOW</h1>
-            <p class="hero-subtitle">ブラウザですぐ遊べるゲーム集</p>
+            <h1 class="glitch-text">PLAY ANYWHERE</h1>
+            <p class="hero-subtitle">PC・タブレット・スマホ対応</p>
+            <div class="device-icons">💻 📱 ⌨️</div>
         </div>
     </section>
     
     <section class="games-section" id="games">
-        <h2 class="section-title">🎮 即プレイゲーム</h2>
+        <h2 class="section-title">🎮 タップして即プレイ</h2>
         <div class="games-grid">
-            <!-- ゲーム1: スネーク -->
             <div class="game-card" onclick="openGame('snake')">
                 <div class="game-preview" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
                     <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🐍</div>
@@ -479,12 +577,16 @@
                 </div>
                 <div class="game-info">
                     <h3 class="game-title">NEON SNAKE</h3>
-                    <p class="game-desc">クラシックスネークをネオン風にリメイク！矢印キーで操作</p>
-                    <button class="play-btn">プレイ開始</button>
+                    <p class="game-desc">クラシックスネークをネオン風に！</p>
+                    <div class="controls-hint">
+                        <span class="control-tag">⌨️ 矢印キー</span>
+                        <span class="control-tag">👆 スワイプ</span>
+                        <span class="control-tag">🎮 タッチパッド</span>
+                    </div>
+                    <button class="play-btn">タップしてプレイ</button>
                 </div>
             </div>
             
-            <!-- ゲーム2: ブロック崩し -->
             <div class="game-card" onclick="openGame('breakout')">
                 <div class="game-preview" style="background: linear-gradient(135deg, #c31432, #240b36);">
                     <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🧱</div>
@@ -494,12 +596,16 @@
                 </div>
                 <div class="game-info">
                     <h3 class="game-title">CYBER BREAKOUT</h3>
-                    <p class="game-desc">ブロック崩しの決定版！マウスまたはタッチで操作</p>
-                    <button class="play-btn">プレイ開始</button>
+                    <p class="game-desc">ブロック崩しの決定版！</p>
+                    <div class="controls-hint">
+                        <span class="control-tag">🖱️ マウス</span>
+                        <span class="control-tag">👆 タッチ移動</span>
+                        <span class="control-tag">⌨️ 左右キー</span>
+                    </div>
+                    <button class="play-btn">タップしてプレイ</button>
                 </div>
             </div>
             
-            <!-- ゲーム3: シューティング -->
             <div class="game-card" onclick="openGame('shooter')">
                 <div class="game-preview" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
                     <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🚀</div>
@@ -509,12 +615,16 @@
                 </div>
                 <div class="game-info">
                     <h3 class="game-title">SPACE DEFENDER</h3>
-                    <p class="game-desc">宇宙を守るシューティング！矢印キー移動、スペース射击</p>
-                    <button class="play-btn">プレイ開始</button>
+                    <p class="game-desc">宇宙を守るシューティング！</p>
+                    <div class="controls-hint">
+                        <span class="control-tag">⌨️ 矢印+スペース</span>
+                        <span class="control-tag">👆 タッチ移動</span>
+                        <span class="control-tag">🔫 自動射击</span>
+                    </div>
+                    <button class="play-btn">タップしてプレイ</button>
                 </div>
             </div>
             
-            <!-- ゲーム4: パズル -->
             <div class="game-card" onclick="openGame('puzzle')">
                 <div class="game-preview" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
                     <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🧩</div>
@@ -524,12 +634,15 @@
                 </div>
                 <div class="game-info">
                     <h3 class="game-title">COLOR MATCH</h3>
-                    <p class="game-desc">同色を消すパズルゲーム！クリックでブロック消去</p>
-                    <button class="play-btn">プレイ開始</button>
+                    <p class="game-desc">同色を揃えるパズル！</p>
+                    <div class="controls-hint">
+                        <span class="control-tag">🖱️ マウスクリック</span>
+                        <span class="control-tag">👆 タップ</span>
+                    </div>
+                    <button class="play-btn">タップしてプレイ</button>
                 </div>
             </div>
             
-            <!-- ゲーム5: ジャンプ -->
             <div class="game-card" onclick="openGame('jump')">
                 <div class="game-preview" style="background: linear-gradient(135deg, #f12711, #f5af19);">
                     <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🏃</div>
@@ -539,12 +652,16 @@
                 </div>
                 <div class="game-info">
                     <h3 class="game-title">NEON JUMPER</h3>
-                    <p class="game-desc">障害物を飛び越えろ！スペースキーまたはタップでジャンプ</p>
-                    <button class="play-btn">プレイ開始</button>
+                    <p class="game-desc">障害物をジャンプで避けろ！</p>
+                    <div class="controls-hint">
+                        <span class="control-tag">⌨️ スペース/↑</span>
+                        <span class="control-tag">👆 タップ</span>
+                        <span class="control-tag">🖱️ クリック</span>
+                    </div>
+                    <button class="play-btn">タップしてプレイ</button>
                 </div>
             </div>
             
-            <!-- ゲーム6: タイピング -->
             <div class="game-card" onclick="openGame('typing')">
                 <div class="game-preview" style="background: linear-gradient(135deg, #8E2DE2, #4A00E0);">
                     <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⌨️</div>
@@ -554,89 +671,100 @@
                 </div>
                 <div class="game-info">
                     <h3 class="game-title">CODE RUSH</h3>
-                    <p class="game-desc">タイピング速度を競え！落ちてくる文字を入力して破壊</p>
-                    <button class="play-btn">プレイ開始</button>
+                    <p class="game-desc">タイピング速度を競え！</p>
+                    <div class="controls-hint">
+                        <span class="control-tag">⌨️ キーボード必須</span>
+                        <span class="control-tag">💻 PC推奨</span>
+                    </div>
+                    <button class="play-btn">タップしてプレイ</button>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- ニュースセクション -->
+    <!-- ニュース -->
     <section class="news-section">
         <div class="news-container">
-            <h2 class="section-title">📰 最新ニュース <span style="font-size: 1rem; color: #ff0066;">2026年3月13日更新</span></h2>
+            <h2 class="section-title">📰 最新ニュース <span style="font-size: 0.8rem; color: #ff0066;">2026年3月13日更新</span></h2>
             
             <div class="news-ticker">
                 <div class="ticker-content">
-                    <span class="ticker-item">🎉 NEXUS ARCADE 正式リリース！6タイトルが即プレイ可能に</span>
-                    <span class="ticker-item">🏆 世界大会「CYBER GAME 2026」東京で開催決定</span>
-                    <span class="ticker-item">🆕 新ゲーム「NEON RACER」3月20日追加予定</span>
-                    <span class="ticker-item">📱 モバイル対応アップデート実施中</span>
-                    <span class="ticker-item">🎮 累計100万プレイ突破記念イベント開催！</span>
-                    <span class="ticker-item">🎉 NEXUS ARCADE 正式リリース！6タイトルが即プレイ可能に</span>
+                    <span class="ticker-item">🎉 全機種対応版リリース！スマホ・タブレット・PCで完動作</span>
+                    <span class="ticker-item">📱 タッチコントロールを全面刷新、操作性大幅UP</span>
+                    <span class="ticker-item">🎮 6タイトル全てが即プレイ可能に</span>
+                    <span class="ticker-item">🏆 デイリーランキング機能実装予定</span>
+                    <span class="ticker-item">✨ 新ゲーム「NEON RACER」3月20日追加</span>
+                    <span class="ticker-item">🎉 全機種対応版リリース！スマホ・タブレット・PCで完動作</span>
                 </div>
             </div>
             
             <div class="news-grid">
                 <div class="news-card">
                     <div class="news-date">2026年3月13日 <span class="new-badge">NEW</span></div>
-                    <div class="news-title">🚀 NEXUS ARCADE グランドオープン！</div>
-                    <div class="news-excerpt">本日より、ブラウザですぐに遊べる6つのゲームを公開。スネーク、ブロック崩し、シューティングなど、名作をネオン風にリメイク。全ゲーム無料で遊べます！</div>
+                    <div class="news-title">🚀 全機種対応完全版リリース！</div>
+                    <div class="news-excerpt">ついにPC、タブレット、スマートフォン全てに対応。タッチ操作、マウス操作、キーボード操作を全ゲームに実装。どのデバイスでも快適にプレイ可能です！</div>
                 </div>
                 
                 <div class="news-card">
                     <div class="news-date">2026年3月13日 <span class="new-badge">NEW</span></div>
-                    <div class="news-title">🏅 ランキング機能実装</div>
-                    <div class="news-excerpt">各ゲームのハイスコアランキングを導入。世界中のプレイヤーとスコアを競い合おう。トップ10入りで特別バッジを獲得！</div>
+                    <div class="news-title">📱 タッチコントロール革命</div>
+                    <div class="news-excerpt">スマホでの操作性を根本から見直し。スネークはスワイプ対応、シューティングは自動射击+タッチ移動、ジャンプゲームはワンタップ操作に。直感的な操作を実現。</div>
                 </div>
                 
                 <div class="news-card">
                     <div class="news-date">2026年3月13日 <span class="new-badge">NEW</span></div>
-                    <div class="news-title">📱 スマホ対応強化</div>
-                    <div class="news-excerpt">タッチ操作に完全対応。iOS/Androidのブラウザからも快適にプレイ可能。通勤時間や休憩中に気軽にゲームを楽しめます。</div>
+                    <div class="news-title">🎮 6タイトル全てが即プレイ可能</div>
+                    <div class="news-excerpt">スネーク、ブロック崩し、シューティング、パズル、ジャンプ、タイピング。全てのゲームがブラウザですぐに遊べます。ダウンロード不要、インストール不要！</div>
                 </div>
                 
                 <div class="news-card">
                     <div class="news-date">2026年3月12日</div>
-                    <div class="news-title">🎨 新テーマ「サイバーパンク」追加</div>
-                    <div class="news-excerpt">全ゲームにサイバーパンク風のビジュアルテーマを適用。ネオンカラーとグリッチエフェクトで未来的なゲーム体験を提供。</div>
+                    <div class="news-title">⚡ レスポンシブデザイン実装</div>
+                    <div class="news-excerpt">画面サイズに応じて自動調整されるゲーム画面。スマホの縦画面でも横画面でも最適な表示に。iPhone、iPad、Android全機種対応。</div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-date">2026年3月11日</div>
+                    <div class="news-title">🎨 UI/UX全面刷新</div>
+                    <div class="news-excerpt">ゲーム選択画面からプレイ画面まで、全てのUIを刷新。ダークモードベースのサイバーパンクデザインで統一感のある体験を提供。</div>
                 </div>
                 
                 <div class="news-card">
                     <div class="news-date">2026年3月10日</div>
-                    <div class="news-title">⚡ パフォーマンス最適化</div>
-                    <div class="news-excerpt">ゲームエンジンを刷新し、60FPSでの動作を保証。低スペック端末でも快適に動作するよう最適化しました。</div>
-                </div>
-                
-                <div class="news-card">
-                    <div class="news-date">2026年3月8日</div>
-                    <div class="news-title">🌟 ベータテスト完了</div>
-                    <div class="news-excerpt">1万名のベータテスターによる検証を完了。多数のバグ修正とUI改善を実施。ご協力いただいた皆様に感謝します。</div>
+                    <div class="news-title">🔧 パフォーマンス最適化完了</div>
+                    <div class="news-excerpt">60FPSでの動作を全機種で保証。低スペック端末でも快適に動作。バッテリー消費も最適化し、長時間のプレイをサポート。</div>
                 </div>
             </div>
         </div>
     </section>
     
     <footer>
-        <p>&copy; 2026 NEXUS ARCADE. All games are free to play!</p>
+        <p>&copy; 2026 NEXUS ARCADE. PC・Tablet・Smartphone Supported</p>
     </footer>
     
     <!-- ゲームモーダル -->
     <div class="modal" id="gameModal">
-        <div class="game-container">
+        <div class="game-wrapper">
             <div class="game-header">
                 <h2 id="gameTitle">GAME TITLE</h2>
                 <button class="close-btn" onclick="closeGame()">✕ 閉じる</button>
             </div>
-            <canvas id="gameCanvas"></canvas>
-            <div class="game-controls">
-                <div class="control-group">
-                    <span class="score-display">SCORE: <span id="score">0</span></span>
-                </div>
-                <div class="control-group">
+            <div class="canvas-container">
+                <canvas id="gameCanvas"></canvas>
+            </div>
+            <div class="game-controls-bar">
+                <div class="score-display">SCORE: <span id="score">0</span></div>
+                <div class="control-buttons">
                     <button class="control-btn" onclick="resetGame()">🔄 リセット</button>
                     <button class="control-btn" onclick="togglePause()">⏸ ポーズ</button>
                 </div>
+            </div>
+            <div class="touch-controls" id="touchControls">
+                <div class="touch-btn" id="btnLeft">←</div>
+                <div class="touch-btn" id="btnRight">→</div>
+                <div class="touch-btn" id="btnUp">↑</div>
+                <div class="touch-btn" id="btnDown">↓</div>
+                <div class="touch-btn large" id="btnAction">●</div>
             </div>
         </div>
     </div>
@@ -647,6 +775,17 @@
         let score = 0;
         let isPaused = false;
         let canvas, ctx;
+        let animationId = null;
+        let gameInterval = null;
+        
+        // タッチ状態管理
+        const touchState = {
+            left: false,
+            right: false,
+            up: false,
+            down: false,
+            action: false
+        };
         
         function scrollToGames() {
             document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
@@ -655,17 +794,28 @@
         function openGame(gameType) {
             const modal = document.getElementById('gameModal');
             const title = document.getElementById('gameTitle');
+            const touchControls = document.getElementById('touchControls');
             canvas = document.getElementById('gameCanvas');
             ctx = canvas.getContext('2d');
             
-            // キャンバスサイズ設定
-            canvas.width = 1000;
-            canvas.height = 600;
+            // キャンバスサイズをコンテナに合わせる
+            resizeCanvas();
             
             modal.classList.add('active');
             score = 0;
             isPaused = false;
             updateScore();
+            
+            // タッチコントロール表示判定
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (isTouchDevice && gameType !== 'typing' && gameType !== 'puzzle') {
+                touchControls.classList.add('active');
+                setupTouchControls(gameType);
+            } else {
+                touchControls.classList.remove('active');
+            }
+            
+            window.addEventListener('resize', resizeCanvas);
             
             switch(gameType) {
                 case 'snake':
@@ -695,11 +845,68 @@
             }
         }
         
+        function resizeCanvas() {
+            if (!canvas) return;
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+        
+        function setupTouchControls(gameType) {
+            const btnLeft = document.getElementById('btnLeft');
+            const btnRight = document.getElementById('btnRight');
+            const btnUp = document.getElementById('btnUp');
+            const btnDown = document.getElementById('btnDown');
+            const btnAction = document.getElementById('btnAction');
+            
+            // ゲームタイプに応じてボタン表示調整
+            if (gameType === 'snake') {
+                btnUp.style.display = 'flex';
+                btnDown.style.display = 'flex';
+                btnLeft.style.display = 'flex';
+                btnRight.style.display = 'flex';
+                btnAction.style.display = 'none';
+            } else if (gameType === 'breakout' || gameType === 'shooter') {
+                btnUp.style.display = 'none';
+                btnDown.style.display = 'none';
+                btnLeft.style.display = 'flex';
+                btnRight.style.display = 'flex';
+                btnAction.style.display = gameType === 'shooter' ? 'none' : 'none';
+            } else if (gameType === 'jump') {
+                btnUp.style.display = 'none';
+                btnDown.style.display = 'none';
+                btnLeft.style.display = 'none';
+                btnRight.style.display = 'none';
+                btnAction.style.display = 'flex';
+                btnAction.textContent = 'JUMP';
+            }
+            
+            // タッチイベント設定
+            const addTouchListener = (btn, key) => {
+                btn.addEventListener('touchstart', (e) => { e.preventDefault(); touchState[key] = true; });
+                btn.addEventListener('touchend', (e) => { e.preventDefault(); touchState[key] = false; });
+                btn.addEventListener('mousedown', (e) => { e.preventDefault(); touchState[key] = true; });
+                btn.addEventListener('mouseup', (e) => { e.preventDefault(); touchState[key] = false; });
+                btn.addEventListener('mouseleave', (e) => { e.preventDefault(); touchState[key] = false; });
+            };
+            
+            addTouchListener(btnLeft, 'left');
+            addTouchListener(btnRight, 'right');
+            addTouchListener(btnUp, 'up');
+            addTouchListener(btnDown, 'down');
+            addTouchListener(btnAction, 'action');
+        }
+        
         function closeGame() {
             const modal = document.getElementById('gameModal');
             modal.classList.remove('active');
-            if (gameLoop) cancelAnimationFrame(gameLoop);
+            if (animationId) cancelAnimationFrame(animationId);
+            if (gameInterval) clearInterval(gameInterval);
             currentGame = null;
+            window.removeEventListener('resize', resizeCanvas);
+            
+            // タッチ状態リセット
+            Object.keys(touchState).forEach(key => touchState[key] = false);
         }
         
         function resetGame() {
@@ -725,111 +932,161 @@
             document.getElementById('score').textContent = score;
         }
         
-        // ===== スネークゲーム =====
+        // ===== スネークゲーム（全機種対応版） =====
         function initSnake() {
             currentGame = 'snake';
             const gridSize = 20;
-            const tileCount = canvas.width / gridSize;
-            let snake = [{x: 10, y: 10}];
-            let food = {x: 15, y: 15};
+            const tileCountX = Math.floor(canvas.width / gridSize);
+            const tileCountY = Math.floor(canvas.height / gridSize);
+            let snake = [{x: Math.floor(tileCountX/2), y: Math.floor(tileCountY/2)}];
+            let food = {
+                x: Math.floor(Math.random() * tileCountX),
+                y: Math.floor(Math.random() * tileCountY)
+            };
             let dx = 0;
             let dy = 0;
+            let lastDirection = {dx: 0, dy: 0};
             
+            // キーボード操作
             document.onkeydown = (e) => {
-                if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -1; }
-                if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 1; }
-                if (e.key === 'ArrowLeft' && dx === 0) { dx = -1; dy = 0; }
-                if (e.key === 'ArrowRight' && dx === 0) { dx = 1; dy = 0; }
+                if (e.key === 'ArrowUp' && lastDirection.dy === 0) { dx = 0; dy = -1; }
+                if (e.key === 'ArrowDown' && lastDirection.dy === 0) { dx = 0; dy = 1; }
+                if (e.key === 'ArrowLeft' && lastDirection.dx === 0) { dx = -1; dy = 0; }
+                if (e.key === 'ArrowRight' && lastDirection.dx === 0) { dx = 1; dy = 0; }
+            };
+            
+            // スワイプ操作
+            let touchStartX = 0;
+            let touchStartY = 0;
+            canvas.ontouchstart = (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            };
+            canvas.ontouchmove = (e) => {
+                e.preventDefault();
+                if (!touchStartX || !touchStartY) return;
+                let touchEndX = e.touches[0].clientX;
+                let touchEndY = e.touches[0].clientY;
+                let dxSwipe = touchEndX - touchStartX;
+                let dySwipe = touchEndY - touchStartY;
+                
+                if (Math.abs(dxSwipe) > Math.abs(dySwipe)) {
+                    if (dxSwipe > 30 && lastDirection.dx === 0) { dx = 1; dy = 0; }
+                    else if (dxSwipe < -30 && lastDirection.dx === 0) { dx = -1; dy = 0; }
+                } else {
+                    if (dySwipe > 30 && lastDirection.dy === 0) { dx = 0; dy = 1; }
+                    else if (dySwipe < -30 && lastDirection.dy === 0) { dx = 0; dy = -1; }
+                }
+                touchStartX = touchEndX;
+                touchStartY = touchEndY;
             };
             
             function gameStep() {
                 if (isPaused) return;
                 
+                // タッチコントロール処理
+                if (touchState.up && lastDirection.dy === 0) { dx = 0; dy = -1; }
+                if (touchState.down && lastDirection.dy === 0) { dx = 0; dy = 1; }
+                if (touchState.left && lastDirection.dx === 0) { dx = -1; dy = 0; }
+                if (touchState.right && lastDirection.dx === 0) { dx = 1; dy = 0; }
+                
                 ctx.fillStyle = '#000';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // グリッド描画
+                // グリッド
                 ctx.strokeStyle = '#0f3460';
-                for (let i = 0; i < tileCount; i++) {
+                ctx.lineWidth = 1;
+                for (let i = 0; i <= tileCountX; i++) {
                     ctx.beginPath();
                     ctx.moveTo(i * gridSize, 0);
                     ctx.lineTo(i * gridSize, canvas.height);
                     ctx.stroke();
+                }
+                for (let i = 0; i <= tileCountY; i++) {
                     ctx.beginPath();
                     ctx.moveTo(0, i * gridSize);
                     ctx.lineTo(canvas.width, i * gridSize);
                     ctx.stroke();
                 }
                 
-                const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-                
-                // 壁衝突
-                if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= canvas.height / gridSize) {
-                    resetGame();
-                    return;
-                }
-                
-                // 自己衝突
-                for (let segment of snake) {
-                    if (head.x === segment.x && head.y === segment.y) {
+                if (dx !== 0 || dy !== 0) {
+                    lastDirection = {dx, dy};
+                    const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+                    
+                    if (head.x < 0 || head.x >= tileCountX || head.y < 0 || head.y >= tileCountY) {
                         resetGame();
                         return;
                     }
+                    
+                    for (let segment of snake) {
+                        if (head.x === segment.x && head.y === segment.y) {
+                            resetGame();
+                            return;
+                        }
+                    }
+                    
+                    snake.unshift(head);
+                    
+                    if (head.x === food.x && head.y === food.y) {
+                        score += 10;
+                        updateScore();
+                        food = {
+                            x: Math.floor(Math.random() * tileCountX),
+                            y: Math.floor(Math.random() * tileCountY)
+                        };
+                    } else {
+                        snake.pop();
+                    }
                 }
                 
-                snake.unshift(head);
-                
-                // 餌を食べた
-                if (head.x === food.x && head.y === food.y) {
-                    score += 10;
-                    updateScore();
-                    food = {
-                        x: Math.floor(Math.random() * tileCount),
-                        y: Math.floor(Math.random() * (canvas.height / gridSize))
-                    };
-                } else {
-                    snake.pop();
-                }
-                
-                // 餌描画
+                // 餌
                 ctx.fillStyle = '#ff0066';
                 ctx.shadowBlur = 20;
                 ctx.shadowColor = '#ff0066';
-                ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
-                ctx.shadowBlur = 0;
+                ctx.fillRect(food.x * gridSize + 2, food.y * gridSize + 2, gridSize - 4, gridSize - 4);
                 
-                // スネーク描画
+                // スネーク
                 snake.forEach((segment, index) => {
                     ctx.fillStyle = index === 0 ? '#00ffff' : '#00aaaa';
                     ctx.shadowBlur = index === 0 ? 20 : 10;
                     ctx.shadowColor = '#00ffff';
-                    ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+                    ctx.fillRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, gridSize - 4);
                 });
                 ctx.shadowBlur = 0;
             }
             
             function loop() {
                 gameStep();
-                gameLoop = setTimeout(() => requestAnimationFrame(loop), 100);
+                animationId = requestAnimationFrame(loop);
             }
             loop();
         }
         
-        // ===== ブロック崩し =====
+        // ===== ブロック崩し（全機種対応版） =====
         function initBreakout() {
             currentGame = 'breakout';
-            let paddle = { x: 400, y: 550, width: 120, height: 15 };
-            let ball = { x: 500, y: 300, dx: 4, dy: -4, radius: 8 };
+            let paddle = { 
+                x: canvas.width / 2 - 60, 
+                y: canvas.height - 40, 
+                width: 120, 
+                height: 15 
+            };
+            let ball = { 
+                x: canvas.width / 2, 
+                y: canvas.height / 2, 
+                dx: 4 * (canvas.width / 800), 
+                dy: -4 * (canvas.width / 800), 
+                radius: 8 * (canvas.width / 800)
+            };
             let bricks = [];
             const brickRowCount = 5;
-            const brickColumnCount = 10;
-            const brickWidth = 80;
+            const brickColumnCount = 8;
+            const brickWidth = (canvas.width - 100) / brickColumnCount;
             const brickHeight = 20;
             const brickPadding = 10;
             const brickOffsetTop = 60;
-            const brickOffsetLeft = 35;
+            const brickOffsetLeft = 50;
             
-            // ブロック初期化
             for (let c = 0; c < brickColumnCount; c++) {
                 for (let r = 0; r < brickRowCount; r++) {
                     bricks.push({
@@ -841,30 +1098,40 @@
                 }
             }
             
-            canvas.onmousemove = (e) => {
+            // マウス/タッチ移動
+            const handleMove = (clientX) => {
                 const rect = canvas.getBoundingClientRect();
                 const scaleX = canvas.width / rect.width;
-                paddle.x = (e.clientX - rect.left) * scaleX - paddle.width / 2;
+                let newX = (clientX - rect.left) * scaleX - paddle.width / 2;
+                newX = Math.max(0, Math.min(canvas.width - paddle.width, newX));
+                paddle.x = newX;
             };
             
+            canvas.onmousemove = (e) => handleMove(e.clientX);
             canvas.ontouchmove = (e) => {
                 e.preventDefault();
-                const rect = canvas.getBoundingClientRect();
-                const scaleX = canvas.width / rect.width;
-                paddle.x = (e.touches[0].clientX - rect.left) * scaleX - paddle.width / 2;
+                handleMove(e.touches[0].clientX);
+            };
+            
+            // キーボード
+            document.onkeydown = (e) => {
+                if (e.key === 'ArrowLeft') paddle.x = Math.max(0, paddle.x - 20);
+                if (e.key === 'ArrowRight') paddle.x = Math.min(canvas.width - paddle.width, paddle.x + 20);
             };
             
             function gameStep() {
                 if (isPaused) return;
                 
+                // タッチコントロール
+                if (touchState.left) paddle.x = Math.max(0, paddle.x - 10);
+                if (touchState.right) paddle.x = Math.min(canvas.width - paddle.width, paddle.x + 10);
+                
                 ctx.fillStyle = '#000';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // ボール移動
                 ball.x += ball.dx;
                 ball.y += ball.dy;
                 
-                // 壁衝突
                 if (ball.x + ball.dx > canvas.width - ball.radius || ball.x + ball.dx < ball.radius) {
                     ball.dx = -ball.dx;
                 }
@@ -872,29 +1139,25 @@
                     ball.dy = -ball.dy;
                 }
                 
-                // ゲームオーバー
                 if (ball.y > canvas.height) {
                     resetGame();
                     return;
                 }
                 
-                // パドル衝突
                 if (ball.y + ball.radius > paddle.y && 
                     ball.x > paddle.x && 
                     ball.x < paddle.x + paddle.width) {
-                    ball.dy = -ball.dy;
-                    // パドルの位置で角度変化
+                    ball.dy = -Math.abs(ball.dy);
                     let hitPos = (ball.x - paddle.x) / paddle.width;
-                    ball.dx = 8 * (hitPos - 0.5);
+                    ball.dx = 8 * (hitPos - 0.5) * (canvas.width / 800);
                 }
                 
-                // ブロック描画・衝突
                 let activeBricks = 0;
                 bricks.forEach(brick => {
                     if (brick.status === 1) {
                         activeBricks++;
                         ctx.fillStyle = brick.color;
-                        ctx.fillRect(brick.x, brick.y, brickWidth, brickHeight);
+                        ctx.fillRect(brick.x, brick.y, brickWidth - 5, brickHeight);
                         
                         if (ball.x > brick.x && ball.x < brick.x + brickWidth &&
                             ball.y > brick.y && ball.y < brick.y + brickHeight) {
@@ -911,13 +1174,11 @@
                     return;
                 }
                 
-                // パドル描画
                 ctx.fillStyle = '#00ffff';
                 ctx.shadowBlur = 20;
                 ctx.shadowColor = '#00ffff';
                 ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
                 
-                // ボール描画
                 ctx.beginPath();
                 ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
                 ctx.fillStyle = '#fff';
@@ -928,50 +1189,75 @@
             
             function loop() {
                 gameStep();
-                gameLoop = requestAnimationFrame(loop);
+                animationId = requestAnimationFrame(loop);
             }
             loop();
         }
         
-        // ===== シューティング =====
+        // ===== シューティング（全機種対応版） =====
         function initShooter() {
             currentGame = 'shooter';
-            let player = { x: 500, y: 500, width: 40, height: 40 };
+            let player = { 
+                x: canvas.width / 2 - 20, 
+                y: canvas.height - 80, 
+                width: 40, 
+                height: 40 
+            };
             let bullets = [];
             let enemies = [];
             let enemySpawnTimer = 0;
+            let autoShootTimer = 0;
             
+            // キーボード
             document.onkeydown = (e) => {
                 if (e.key === 'ArrowLeft') player.x -= 15;
                 if (e.key === 'ArrowRight') player.x += 15;
-                if (e.key === ' ') {
+                if (e.key === ' ' || e.key === 'ArrowUp') {
                     bullets.push({ x: player.x + 20, y: player.y, speed: 10 });
                 }
             };
             
-            canvas.onmousemove = (e) => {
+            // マウス/タッチ移動（自動射击）
+            const handleMove = (clientX) => {
                 const rect = canvas.getBoundingClientRect();
                 const scaleX = canvas.width / rect.width;
-                player.x = (e.clientX - rect.left) * scaleX - 20;
+                player.x = (clientX - rect.left) * scaleX - 20;
             };
             
-            canvas.onclick = () => {
-                bullets.push({ x: player.x + 20, y: player.y, speed: 10 });
+            canvas.onmousemove = (e) => handleMove(e.clientX);
+            canvas.ontouchmove = (e) => {
+                e.preventDefault();
+                handleMove(e.touches[0].clientX);
             };
             
             function gameStep() {
                 if (isPaused) return;
                 
+                // タッチコントロール
+                if (touchState.left) player.x -= 10;
+                if (touchState.right) player.x += 10;
+                player.x = Math.max(0, Math.min(canvas.width - 40, player.x));
+                
                 ctx.fillStyle = '#000';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // 星背景
+                // 星
                 ctx.fillStyle = '#fff';
-                for (let i = 0; i < 50; i++) {
-                    ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+                for (let i = 0; i < 30; i++) {
+                    ctx.fillRect(
+                        Math.random() * canvas.width, 
+                        Math.random() * canvas.height, 
+                        2, 2
+                    );
                 }
                 
-                // 敵生成
+                // 自動射击（タッチ時または常時）
+                autoShootTimer++;
+                if (autoShootTimer > 15) {
+                    bullets.push({ x: player.x + 20, y: player.y, speed: 10 });
+                    autoShootTimer = 0;
+                }
+                
                 enemySpawnTimer++;
                 if (enemySpawnTimer > 60) {
                     enemies.push({
@@ -984,7 +1270,7 @@
                     enemySpawnTimer = 0;
                 }
                 
-                // プレイヤー描画
+                // プレイヤー
                 ctx.fillStyle = '#00ffff';
                 ctx.shadowBlur = 20;
                 ctx.shadowColor = '#00ffff';
@@ -995,7 +1281,7 @@
                 ctx.closePath();
                 ctx.fill();
                 
-                // 弾処理
+                // 弾
                 bullets = bullets.filter(bullet => {
                     bullet.y -= bullet.speed;
                     ctx.fillStyle = '#ffff00';
@@ -1003,15 +1289,12 @@
                     return bullet.y > 0;
                 });
                 
-                // 敵処理
+                // 敵
                 enemies = enemies.filter(enemy => {
                     enemy.y += enemy.speed;
-                    
-                    // 敵描画
                     ctx.fillStyle = '#ff0066';
                     ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
                     
-                    // 衝突判定（弾）
                     for (let bullet of bullets) {
                         if (bullet.x > enemy.x && bullet.x < enemy.x + enemy.width &&
                             bullet.y > enemy.y && bullet.y < enemy.y + enemy.height) {
@@ -1021,7 +1304,6 @@
                         }
                     }
                     
-                    // 衝突判定（プレイヤー）
                     if (enemy.y + enemy.height > player.y &&
                         enemy.x < player.x + 40 &&
                         enemy.x + enemy.width > player.x) {
@@ -1037,20 +1319,23 @@
             
             function loop() {
                 gameStep();
-                gameLoop = requestAnimationFrame(loop);
+                animationId = requestAnimationFrame(loop);
             }
             loop();
         }
         
-        // ===== パズル =====
+        // ===== パズル（全機種対応版） =====
         function initPuzzle() {
             currentGame = 'puzzle';
             let grid = [];
-            const cols = 10;
-            const rows = 8;
-            const cellSize = 50;
+            const cols = 8;
+            const rows = 6;
+            let cellSize = Math.min(canvas.width / (cols + 2), canvas.height / (rows + 2));
+            let offsetX = (canvas.width - cols * cellSize) / 2;
+            let offsetY = (canvas.height - rows * cellSize) / 2;
             const colors = ['#ff0066', '#00ffff', '#ffff00', '#00ff00', '#ff00ff'];
             let selected = null;
+            let isProcessing = false;
             
             // グリッド初期化
             for (let i = 0; i < cols; i++) {
@@ -1060,38 +1345,45 @@
                 }
             }
             
-            canvas.onclick = (e) => {
+            const handleClick = (clientX, clientY) => {
+                if (isProcessing) return;
                 const rect = canvas.getBoundingClientRect();
                 const scaleX = canvas.width / rect.width;
                 const scaleY = canvas.height / rect.height;
-                const x = Math.floor(((e.clientX - rect.left) * scaleX - 250) / cellSize);
-                const y = Math.floor(((e.clientY - rect.top) * scaleY - 100) / cellSize);
+                const x = Math.floor(((clientX - rect.left) * scaleX - offsetX) / cellSize);
+                const y = Math.floor(((clientY - rect.top) * scaleY - offsetY) / cellSize);
                 
                 if (x >= 0 && x < cols && y >= 0 && y < rows) {
                     if (!selected) {
                         selected = {x, y};
                     } else {
-                        // 隣接チェック
                         const dx = Math.abs(x - selected.x);
                         const dy = Math.abs(y - selected.y);
                         if (dx + dy === 1) {
-                            // スワップ
+                            isProcessing = true;
                             let temp = grid[x][y];
                             grid[x][y] = grid[selected.x][selected.y];
                             grid[selected.x][selected.y] = temp;
                             
-                            // マッチチェック
-                            checkMatches();
+                            setTimeout(() => {
+                                checkMatches();
+                                isProcessing = false;
+                            }, 200);
                         }
                         selected = null;
                     }
                 }
             };
             
+            canvas.onclick = (e) => handleClick(e.clientX, e.clientY);
+            canvas.ontouchstart = (e) => {
+                e.preventDefault();
+                handleClick(e.touches[0].clientX, e.touches[0].clientY);
+            };
+            
             function checkMatches() {
                 let matched = [];
                 
-                // 横チェック
                 for (let j = 0; j < rows; j++) {
                     for (let i = 0; i < cols - 2; i++) {
                         if (grid[i][j] === grid[i+1][j] && grid[i][j] === grid[i+2][j]) {
@@ -1100,7 +1392,6 @@
                     }
                 }
                 
-                // 縦チェック
                 for (let i = 0; i < cols; i++) {
                     for (let j = 0; j < rows - 2; j++) {
                         if (grid[i][j] === grid[i][j+1] && grid[i][j] === grid[i][j+2]) {
@@ -1112,7 +1403,6 @@
                 if (matched.length > 0) {
                     score += matched.length * 10;
                     updateScore();
-                    // 削除して新規生成
                     matched.forEach(m => {
                         grid[m.x][m.y] = Math.floor(Math.random() * colors.length);
                     });
@@ -1125,74 +1415,93 @@
                 ctx.fillStyle = '#1a1a2e';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // グリッド描画
+                // 再計算
+                cellSize = Math.min(canvas.width / (cols + 2), canvas.height / (rows + 2));
+                offsetX = (canvas.width - cols * cellSize) / 2;
+                offsetY = (canvas.height - rows * cellSize) / 2;
+                
                 for (let i = 0; i < cols; i++) {
                     for (let j = 0; j < rows; j++) {
-                        const x = 250 + i * cellSize;
-                        const y = 100 + j * cellSize;
+                        const x = offsetX + i * cellSize;
+                        const y = offsetY + j * cellSize;
                         
                         ctx.fillStyle = colors[grid[i][j]];
                         if (selected && selected.x === i && selected.y === j) {
                             ctx.shadowBlur = 30;
                             ctx.shadowColor = '#fff';
+                            ctx.strokeStyle = '#fff';
+                            ctx.lineWidth = 3;
+                            ctx.strokeRect(x + 2, y + 2, cellSize - 4, cellSize - 4);
                         } else {
                             ctx.shadowBlur = 10;
                             ctx.shadowColor = colors[grid[i][j]];
                         }
                         
-                        ctx.fillRect(x + 2, y + 2, cellSize - 4, cellSize - 4);
+                        ctx.fillRect(x + 4, y + 4, cellSize - 8, cellSize - 8);
                     }
                 }
                 ctx.shadowBlur = 0;
                 
-                // 説明
                 ctx.fillStyle = '#fff';
-                ctx.font = '20px Arial';
+                ctx.font = '16px Arial';
                 ctx.textAlign = 'center';
-                ctx.fillText('隣り合うブロックをクリックしてスワップ！', 500, 550);
+                ctx.fillText('隣接するブロックをタップしてスワップ！', canvas.width / 2, 30);
             }
             
             function loop() {
                 gameStep();
-                gameLoop = requestAnimationFrame(loop);
+                animationId = requestAnimationFrame(loop);
             }
             loop();
         }
         
-        // ===== ジャンプゲーム =====
+        // ===== ジャンプゲーム（全機種対応版） =====
         function initJump() {
             currentGame = 'jump';
-            let player = { x: 100, y: 400, width: 40, height: 40, dy: 0, jumping: false };
+            let player = { 
+                x: 100 * (canvas.width / 1000), 
+                y: canvas.height - 150, 
+                width: 40, 
+                height: 40, 
+                dy: 0, 
+                jumping: false 
+            };
             let obstacles = [];
-            let ground = 450;
-            let gameSpeed = 5;
+            let ground = canvas.height - 100;
+            let gameSpeed = 5 * (canvas.width / 1000);
             let obstacleTimer = 0;
             
             const jump = () => {
                 if (!player.jumping) {
-                    player.dy = -15;
+                    player.dy = -15 * (canvas.height / 600);
                     player.jumping = true;
                 }
             };
             
             document.onkeydown = (e) => {
-                if (e.code === 'Space') jump();
+                if (e.code === 'Space' || e.key === 'ArrowUp') jump();
             };
             canvas.onclick = jump;
-            canvas.ontouchstart = (e) => { e.preventDefault(); jump(); };
+            canvas.ontouchstart = (e) => { 
+                e.preventDefault(); 
+                jump(); 
+            };
             
             function gameStep() {
                 if (isPaused) return;
+                
+                // アクションボタン
+                if (touchState.action) jump();
                 
                 ctx.fillStyle = '#0a0a0f';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
                 // 地面
                 ctx.fillStyle = '#00ffff';
-                ctx.fillRect(0, ground, canvas.width, 150);
+                ctx.fillRect(0, ground, canvas.width, canvas.height - ground);
                 
                 // 重力
-                player.dy += 0.8;
+                player.dy += 0.8 * (canvas.height / 600);
                 player.y += player.dy;
                 
                 if (player.y > ground - player.height) {
@@ -1201,33 +1510,29 @@
                     player.jumping = false;
                 }
                 
-                // プレイヤー描画
+                // プレイヤー
                 ctx.fillStyle = '#ff00ff';
                 ctx.shadowBlur = 20;
                 ctx.shadowColor = '#ff00ff';
                 ctx.fillRect(player.x, player.y, player.width, player.height);
                 
-                // 障害物生成
+                // 障害物
                 obstacleTimer++;
-                if (obstacleTimer > 100) {
+                if (obstacleTimer > 80) {
                     obstacles.push({
                         x: canvas.width,
-                        y: ground - 40 - Math.random() * 100,
+                        y: ground - 40 - Math.random() * 100 * (canvas.height / 600),
                         width: 30,
                         height: 40 + Math.random() * 60
                     });
                     obstacleTimer = 0;
                 }
                 
-                // 障害物処理
                 obstacles = obstacles.filter(obs => {
                     obs.x -= gameSpeed;
-                    
-                    // 描画
                     ctx.fillStyle = '#ff0066';
                     ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
                     
-                    // 衝突判定
                     if (player.x < obs.x + obs.width &&
                         player.x + player.width > obs.x &&
                         player.y < obs.y + obs.height &&
@@ -1236,7 +1541,6 @@
                         return false;
                     }
                     
-                    // 通過でスコア
                     if (obs.x + obs.width < player.x && !obs.passed) {
                         obs.passed = true;
                         score += 1;
@@ -1250,38 +1554,94 @@
                 
                 // スピードアップ
                 if (score > 0 && score % 10 === 0) {
-                    gameSpeed = 5 + Math.floor(score / 10);
+                    gameSpeed = (5 + Math.floor(score / 10)) * (canvas.width / 1000);
                 }
             }
             
             function loop() {
                 gameStep();
-                gameLoop = requestAnimationFrame(loop);
+                animationId = requestAnimationFrame(loop);
             }
             loop();
         }
         
-        // ===== タイピングゲーム =====
+        // ===== タイピングゲーム（PC推奨・スマホ対応版） =====
         function initTyping() {
             currentGame = 'typing';
-            let words = ['CODE', 'GAME', 'NEXUS', 'HACK', 'DATA', 'CYBER', 'NEON', 'ARCADE', 'PIXEL', 'QUEST'];
+            let words = ['CODE', 'GAME', 'NEXUS', 'HACK', 'DATA', 'CYBER', 'NEON', 'ARCADE', 'PIXEL', 'QUEST', 'STAR', 'WARS'];
             let fallingWords = [];
             let spawnTimer = 0;
+            let inputBuffer = '';
             
+            // キーボード入力
             document.onkeydown = (e) => {
                 const key = e.key.toUpperCase();
-                for (let i = fallingWords.length - 1; i >= 0; i--) {
-                    if (fallingWords[i].word[0] === key) {
-                        fallingWords[i].word = fallingWords[i].word.slice(1);
-                        if (fallingWords[i].word.length === 0) {
-                            fallingWords.splice(i, 1);
-                            score += 10;
-                            updateScore();
-                        }
-                        break;
-                    }
+                if (key.length === 1 && key.match(/[A-Z]/)) {
+                    inputBuffer += key;
+                    checkInput();
+                } else if (e.key === 'Backspace') {
+                    inputBuffer = inputBuffer.slice(0, -1);
+                } else if (e.key === 'Enter') {
+                    inputBuffer = '';
                 }
             };
+            
+            // タッチ用キーボードボタン
+            const touchControls = document.getElementById('touchControls');
+            touchControls.classList.add('active');
+            touchControls.innerHTML = '';
+            
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(char => {
+                const btn = document.createElement('div');
+                btn.className = 'touch-btn';
+                btn.style.width = '40px';
+                btn.style.height = '40px';
+                btn.style.fontSize = '1rem';
+                btn.textContent = char;
+                btn.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    inputBuffer += char;
+                    checkInput();
+                    btn.style.background = 'rgba(0,255,255,0.5)';
+                });
+                btn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    btn.style.background = 'rgba(0,255,255,0.2)';
+                });
+                touchControls.appendChild(btn);
+            });
+            
+            // クリアボタン
+            const clearBtn = document.createElement('div');
+            clearBtn.className = 'touch-btn';
+            clearBtn.style.width = '60px';
+            clearBtn.style.background = 'rgba(255,0,102,0.3)';
+            clearBtn.style.borderColor = '#ff0066';
+            clearBtn.textContent = 'CLR';
+            clearBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                inputBuffer = '';
+            });
+            touchControls.appendChild(clearBtn);
+            
+            function checkInput() {
+                for (let i = fallingWords.length - 1; i >= 0; i--) {
+                    if (fallingWords[i].word.startsWith(inputBuffer)) {
+                        if (fallingWords[i].word === inputBuffer) {
+                            fallingWords.splice(i, 1);
+                            score += inputBuffer.length * 10;
+                            updateScore();
+                            inputBuffer = '';
+                            return;
+                        }
+                        return;
+                    }
+                }
+                // ミスマッチ
+                if (inputBuffer.length > 0) {
+                    inputBuffer = inputBuffer.slice(0, -1);
+                }
+            }
             
             function gameStep() {
                 if (isPaused) return;
@@ -1289,9 +1649,8 @@
                 ctx.fillStyle = '#000';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // グリッド背景
+                // グリッド
                 ctx.strokeStyle = '#0f3460';
-                ctx.lineWidth = 1;
                 for (let i = 0; i < canvas.width; i += 50) {
                     ctx.beginPath();
                     ctx.moveTo(i, 0);
@@ -1299,44 +1658,49 @@
                     ctx.stroke();
                 }
                 
-                // 単語生成
                 spawnTimer++;
-                if (spawnTimer > 80) {
+                if (spawnTimer > 100) {
                     const word = words[Math.floor(Math.random() * words.length)];
                     fallingWords.push({
                         word: word,
                         x: Math.random() * (canvas.width - 100) + 50,
                         y: -30,
-                        speed: 1 + Math.random() * 2
+                        speed: 1 + Math.random() * 1.5
                     });
                     spawnTimer = 0;
                 }
                 
-                // 単語処理
                 fallingWords = fallingWords.filter(fw => {
                     fw.y += fw.speed;
                     
-                    // 描画
-                    ctx.font = 'bold 30px Arial';
+                    ctx.font = 'bold 24px Arial';
                     ctx.textAlign = 'center';
                     
-                    // 最初の文字をハイライト
-                    if (fw.word.length > 0) {
-                        const firstChar = fw.word[0];
-                        const restChars = fw.word.slice(1);
-                        
-                        ctx.fillStyle = '#ffff00';
-                        ctx.shadowBlur = 20;
-                        ctx.shadowColor = '#ffff00';
-                        ctx.fillText(firstChar, fw.x - ctx.measureText(restChars).width / 2, fw.y);
-                        
-                        ctx.fillStyle = '#00ffff';
-                        ctx.shadowBlur = 10;
-                        ctx.shadowColor = '#00ffff';
-                        ctx.fillText(restChars, fw.x + ctx.measureText(firstChar).width / 2, fw.y);
+                    // 入力中の文字ハイライト
+                    let displayWord = fw.word;
+                    let matchedLen = 0;
+                    for (let i = 0; i < Math.min(inputBuffer.length, fw.word.length); i++) {
+                        if (fw.word[i] === inputBuffer[i]) matchedLen++;
+                        else break;
                     }
                     
-                    // ゲームオーバー判定
+                    const matchedPart = fw.word.substring(0, matchedLen);
+                    const restPart = fw.word.substring(matchedLen);
+                    
+                    const totalWidth = ctx.measureText(fw.word).width;
+                    const matchedWidth = ctx.measureText(matchedPart).width;
+                    const startX = fw.x - totalWidth / 2;
+                    
+                    ctx.fillStyle = '#ffff00';
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = '#ffff00';
+                    ctx.fillText(matchedPart, startX + matchedWidth / 2, fw.y);
+                    
+                    ctx.fillStyle = '#00ffff';
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#00ffff';
+                    ctx.fillText(restPart, startX + matchedWidth + ctx.measureText(restPart).width / 2, fw.y);
+                    
                     if (fw.y > canvas.height) {
                         resetGame();
                         return false;
@@ -1347,16 +1711,19 @@
                 
                 ctx.shadowBlur = 0;
                 
-                // 説明
+                // 入力表示
                 ctx.fillStyle = '#fff';
                 ctx.font = '20px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText('INPUT: ' + inputBuffer + '_', 20, canvas.height - 20);
+                
                 ctx.textAlign = 'center';
-                ctx.fillText('落ちてくる単語の最初の文字をタイプ！', 500, 50);
+                ctx.fillText('落ちてくる単語をタイプ！', canvas.width / 2, 30);
             }
             
             function loop() {
                 gameStep();
-                gameLoop = requestAnimationFrame(loop);
+                animationId = requestAnimationFrame(loop);
             }
             loop();
         }
