@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS GAMING - 次世代ゲームポータル</title>
+    <title>NEXUS ARCADE - 即プレイゲームポータル</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
         
@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
         
-        /* グリッチエフェクト背景 */
         .glitch-bg {
             position: fixed;
             top: 0;
@@ -50,7 +49,6 @@
             100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
         }
         
-        /* ヘッダー */
         header {
             padding: 20px 50px;
             display: flex;
@@ -60,7 +58,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.8);
+            background: rgba(10, 10, 15, 0.9);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 255, 255, 0.1);
         }
@@ -72,8 +70,6 @@
             background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
             animation: logoGlow 3s ease-in-out infinite;
         }
         
@@ -82,44 +78,24 @@
             50% { filter: brightness(1.3); }
         }
         
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
+        .play-now-btn {
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border: none;
+            padding: 15px 40px;
+            color: #000;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            font-family: 'Orbitron', sans-serif;
         }
         
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            position: relative;
-            padding: 10px 20px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 255, 0.8); }
         }
         
-        nav a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #00ffff, #ff00ff);
-            transition: width 0.3s;
-        }
-        
-        nav a:hover::before {
-            width: 100%;
-        }
-        
-        nav a:hover {
-            color: #00ffff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-        }
-        
-        /* ヒーローセクション */
         .hero {
             height: 100vh;
             display: flex;
@@ -136,9 +112,8 @@
         
         .glitch-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 6rem;
+            font-size: 5rem;
             font-weight: 900;
-            position: relative;
             text-shadow: 
                 0.05em 0 0 rgba(255, 0, 0, 0.75),
                 -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
@@ -159,70 +134,14 @@
         .hero-subtitle {
             font-size: 1.5rem;
             margin: 20px 0;
-            color: #888;
-            letter-spacing: 10px;
+            color: #00ffff;
+            letter-spacing: 5px;
         }
         
-        .cta-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 20px 60px;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            color: #000;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
-        }
-        
-        .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 60px rgba(255, 0, 255, 0.8);
-        }
-        
-        /* フローティングカード */
-        .floating-cards {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        
-        .float-card {
-            position: absolute;
-            width: 200px;
-            height: 280px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            animation: float 6s ease-in-out infinite;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        
-        .float-card:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .float-card:nth-child(2) { top: 60%; right: 10%; animation-delay: 2s; }
-        .float-card:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 4s; }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(5deg); }
-        }
-        
-        /* ゲームセクション */
         .games-section {
-            padding: 100px 50px;
-            position: relative;
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .section-title {
@@ -230,93 +149,72 @@
             font-size: 3rem;
             text-align: center;
             margin-bottom: 50px;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, transparent);
+            color: #fff;
         }
         
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
         }
         
         .game-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-            border: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 2px solid rgba(0, 255, 255, 0.3);
             border-radius: 20px;
             overflow: hidden;
             transition: all 0.3s;
-            position: relative;
             cursor: pointer;
-        }
-        
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .game-card:hover::before {
-            left: 100%;
+            position: relative;
         }
         
         .game-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             border-color: #00ffff;
-            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.4);
         }
         
-        .game-image {
+        .game-preview {
             width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #1a1a2e, #16213e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
+            height: 250px;
+            background: #000;
             position: relative;
             overflow: hidden;
         }
         
-        .game-image::after {
-            content: '';
+        .play-overlay {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255,255,255,0.03) 10px,
-                rgba(255,255,255,0.03) 20px
-            );
-            animation: scan 8s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
-        @keyframes scan {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        .game-card:hover .play-overlay {
+            opacity: 1;
+        }
+        
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         
         .game-info {
@@ -326,102 +224,148 @@
         .game-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
-            margin-bottom: 10px;
             color: #00ffff;
+            margin-bottom: 10px;
         }
         
-        .game-meta {
-            display: flex;
-            gap: 15px;
-            color: #888;
+        .game-desc {
+            color: #aaa;
+            margin-bottom: 15px;
             font-size: 0.9rem;
-            margin-bottom: 10px;
         }
         
-        .game-tag {
-            display: inline-block;
-            padding: 5px 15px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #00ffff;
+        .play-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border: none;
+            color: #000;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-family: 'Orbitron', sans-serif;
         }
         
-        /* インタラクティブ統計セクション */
-        .stats-section {
-            padding: 100px 50px;
-            background: linear-gradient(180deg, transparent, rgba(0,255,255,0.05), transparent);
+        .play-btn:hover {
+            transform: scale(1.05);
         }
         
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-        }
-        
-        .stat-box {
-            text-align: center;
-            padding: 40px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-box::before {
-            content: '';
-            position: absolute;
+        /* ゲームモーダル */
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .game-container {
+            width: 90%;
+            max-width: 1000px;
+            background: #1a1a2e;
+            border-radius: 20px;
+            border: 2px solid #00ffff;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .game-header {
+            padding: 20px;
             background: linear-gradient(90deg, #00ffff, #ff00ff);
-            transform: scaleX(0);
-            transition: transform 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .stat-box:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .stat-number {
+        .game-header h2 {
+            color: #000;
             font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin: 0;
         }
         
-        .stat-label {
-            color: #888;
-            margin-top: 10px;
-            font-size: 1.1rem;
+        .close-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        #gameCanvas {
+            width: 100%;
+            height: 600px;
+            background: #000;
+            display: block;
+        }
+        
+        .game-controls {
+            padding: 20px;
+            background: #0f0f1e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .control-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 1px solid #00ffff;
+            color: #00ffff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .score-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #ffff00;
         }
         
         /* ニュースセクション */
         .news-section {
-            padding: 100px 50px;
+            padding: 50px 20px;
+            background: linear-gradient(180deg, transparent, rgba(0,255,255,0.05), transparent);
+        }
+        
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .news-ticker {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid rgba(0,255,255,0.2);
+            background: rgba(0,0,0,0.7);
+            border: 2px solid rgba(0,255,255,0.3);
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             overflow: hidden;
-            position: relative;
         }
         
         .ticker-content {
             display: flex;
-            animation: ticker 20s linear infinite;
+            animation: ticker 25s linear infinite;
             white-space: nowrap;
         }
         
@@ -429,6 +373,7 @@
             padding: 0 50px;
             color: #00ffff;
             font-weight: 700;
+            font-size: 1.1rem;
         }
         
         @keyframes ticker {
@@ -436,306 +381,985 @@
             100% { transform: translateX(-50%); }
         }
         
-        /* フッター */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .news-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .news-card:hover {
+            border-color: #00ffff;
+            transform: translateY(-5px);
+            background: rgba(0,255,255,0.05);
+        }
+        
+        .news-date {
+            color: #ff00ff;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .news-excerpt {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .new-badge {
+            display: inline-block;
+            background: #ff0066;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 10px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
         footer {
             padding: 50px;
+            text-align: center;
             background: rgba(0,0,0,0.5);
             border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
         }
         
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1.5rem;
-        }
-        
-        .social-links a:hover {
-            border-color: #00ffff;
-            color: #00ffff;
-            transform: rotate(360deg);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
-        }
-        
-        /* レスポンシブ */
         @media (max-width: 768px) {
             .glitch-text { font-size: 3rem; }
-            .stats-container { grid-template-columns: repeat(2, 1fr); }
-            nav ul { display: none; }
-        }
-        
-        /* ローディングアニメーション */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0a0a0f;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s;
-        }
-        
-        .loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .loader-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            color: #00ffff;
-            animation: pulse 1s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            #gameCanvas { height: 400px; }
+            .games-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- ローダー -->
-    <div class="loader" id="loader">
-        <div class="loader-text">LOADING...</div>
-    </div>
-
-    <!-- 背景 -->
     <div class="glitch-bg"></div>
     <div class="grid-overlay"></div>
-
-    <!-- ヘッダー -->
+    
     <header>
-        <div class="logo">NEXUS</div>
-        <nav>
-            <ul>
-                <li><a href="#games">ゲーム</a></li>
-                <li><a href="#news">ニュース</a></li>
-                <li><a href="#esports">eスポーツ</a></li>
-                <li><a href="#community">コミュニティ</a></li>
-            </ul>
-        </nav>
+        <div class="logo">NEXUS ARCADE</div>
+        <button class="play-now-btn" onclick="scrollToGames()">▶ 今すぐプレイ</button>
     </header>
-
-    <!-- ヒーローセクション -->
+    
     <section class="hero">
-        <div class="floating-cards">
-            <div class="float-card">🎮</div>
-            <div class="float-card">⚔️</div>
-            <div class="float-card">🏆</div>
-        </div>
         <div class="hero-content">
-            <h1 class="glitch-text">GAME ON</h1>
-            <p class="hero-subtitle">次世代ゲーム体験へようこそ</p>
-            <a href="#games" class="cta-button">プレイ開始</a>
+            <h1 class="glitch-text">PLAY NOW</h1>
+            <p class="hero-subtitle">ブラウザですぐ遊べるゲーム集</p>
         </div>
     </section>
-
-    <!-- ゲームセクション -->
+    
     <section class="games-section" id="games">
-        <h2 class="section-title">トレンドゲーム</h2>
+        <h2 class="section-title">🎮 即プレイゲーム</h2>
         <div class="games-grid">
-            <div class="game-card">
-                <div class="game-image">🌌</div>
-                <div class="game-info">
-                    <h3 class="game-title">COSMIC WARFARE</h3>
-                    <div class="game-meta">
-                        <span>👥 2.5M プレイヤー</span>
-                        <span>⭐ 4.9</span>
+            <!-- ゲーム1: スネーク -->
+            <div class="game-card" onclick="openGame('snake')">
+                <div class="game-preview" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
+                    <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🐍</div>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <span class="game-tag">FPS</span>
-                    <span class="game-tag">マルチプレイヤー</span>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">NEON SNAKE</h3>
+                    <p class="game-desc">クラシックスネークをネオン風にリメイク！矢印キーで操作</p>
+                    <button class="play-btn">プレイ開始</button>
                 </div>
             </div>
             
-            <div class="game-card">
-                <div class="game-image">⚔️</div>
-                <div class="game-info">
-                    <h3 class="game-title">DRAGON'S LEGACY</h3>
-                    <div class="game-meta">
-                        <span>👥 1.8M プレイヤー</span>
-                        <span>⭐ 4.8</span>
+            <!-- ゲーム2: ブロック崩し -->
+            <div class="game-card" onclick="openGame('breakout')">
+                <div class="game-preview" style="background: linear-gradient(135deg, #c31432, #240b36);">
+                    <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🧱</div>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <span class="game-tag">RPG</span>
-                    <span class="game-tag">オープンワールド</span>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">CYBER BREAKOUT</h3>
+                    <p class="game-desc">ブロック崩しの決定版！マウスまたはタッチで操作</p>
+                    <button class="play-btn">プレイ開始</button>
                 </div>
             </div>
             
-            <div class="game-card">
-                <div class="game-image">🏎️</div>
-                <div class="game-info">
-                    <h3 class="game-title">VELOCITY X</h3>
-                    <div class="game-meta">
-                        <span>👥 900K プレイヤー</span>
-                        <span>⭐ 4.7</span>
+            <!-- ゲーム3: シューティング -->
+            <div class="game-card" onclick="openGame('shooter')">
+                <div class="game-preview" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
+                    <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🚀</div>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <span class="game-tag">レーシング</span>
-                    <span class="game-tag">VR対応</span>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">SPACE DEFENDER</h3>
+                    <p class="game-desc">宇宙を守るシューティング！矢印キー移動、スペース射击</p>
+                    <button class="play-btn">プレイ開始</button>
                 </div>
             </div>
             
-            <div class="game-card">
-                <div class="game-image">🧙</div>
-                <div class="game-info">
-                    <h3 class="game-title">MYSTIC ARENA</h3>
-                    <div class="game-meta">
-                        <span>👥 3.2M プレイヤー</span>
-                        <span>⭐ 4.9</span>
+            <!-- ゲーム4: パズル -->
+            <div class="game-card" onclick="openGame('puzzle')">
+                <div class="game-preview" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                    <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🧩</div>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
                     </div>
-                    <span class="game-tag">MOBA</span>
-                    <span class="game-tag">戦略</span>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">COLOR MATCH</h3>
+                    <p class="game-desc">同色を消すパズルゲーム！クリックでブロック消去</p>
+                    <button class="play-btn">プレイ開始</button>
+                </div>
+            </div>
+            
+            <!-- ゲーム5: ジャンプ -->
+            <div class="game-card" onclick="openGame('jump')">
+                <div class="game-preview" style="background: linear-gradient(135deg, #f12711, #f5af19);">
+                    <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🏃</div>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">NEON JUMPER</h3>
+                    <p class="game-desc">障害物を飛び越えろ！スペースキーまたはタップでジャンプ</p>
+                    <button class="play-btn">プレイ開始</button>
+                </div>
+            </div>
+            
+            <!-- ゲーム6: タイピング -->
+            <div class="game-card" onclick="openGame('typing')">
+                <div class="game-preview" style="background: linear-gradient(135deg, #8E2DE2, #4A00E0);">
+                    <div style="font-size: 4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⌨️</div>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">CODE RUSH</h3>
+                    <p class="game-desc">タイピング速度を競え！落ちてくる文字を入力して破壊</p>
+                    <button class="play-btn">プレイ開始</button>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- 統計セクション -->
-    <section class="stats-section">
-        <h2 class="section-title">プラットフォーム統計</h2>
-        <div class="stats-container">
-            <div class="stat-box">
-                <div class="stat-number" data-target="10">0</div>
-                <div class="stat-label">M+ プレイヤー</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number" data-target="500">0</div>
-                <div class="stat-label">+ ゲームタイトル</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number" data-target="99">0</div>
-                <div class="stat-label">% アップタイム</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number" data-target="24">0</div>
-                <div class="stat-label">/7 サポート</div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- ニュースセクション -->
-    <section class="news-section" id="news">
-        <h2 class="section-title">最新ニュース</h2>
-        <div class="news-ticker">
-            <div class="ticker-content">
-                <span class="ticker-item">🔥 COSMIC WARFARE シーズン2開始！新マップ「ネオン東京」追加</span>
-                <span class="ticker-item">🏆 世界大会2024 優勝チームが決定！賞金総額500万ドル</span>
-                <span class="ticker-item">🎮 VR対応タイトルが30%オフ！週末セール開催中</span>
-                <span class="ticker-item">🌟 新規インディーゲーム「Pixel Odyssey」が話題沸騰</span>
-                <span class="ticker-item">🔧 メンテナンス完了：サーバー性能が30%向上</span>
-                <span class="ticker-item">🔥 COSMIC WARFARE シーズン2開始！新マップ「ネオン東京」追加</span>
-                <span class="ticker-item">🏆 世界大会2024 優勝チームが決定！賞金総額500万ドル</span>
+    <section class="news-section">
+        <div class="news-container">
+            <h2 class="section-title">📰 最新ニュース <span style="font-size: 1rem; color: #ff0066;">2026年3月13日更新</span></h2>
+            
+            <div class="news-ticker">
+                <div class="ticker-content">
+                    <span class="ticker-item">🎉 NEXUS ARCADE 正式リリース！6タイトルが即プレイ可能に</span>
+                    <span class="ticker-item">🏆 世界大会「CYBER GAME 2026」東京で開催決定</span>
+                    <span class="ticker-item">🆕 新ゲーム「NEON RACER」3月20日追加予定</span>
+                    <span class="ticker-item">📱 モバイル対応アップデート実施中</span>
+                    <span class="ticker-item">🎮 累計100万プレイ突破記念イベント開催！</span>
+                    <span class="ticker-item">🎉 NEXUS ARCADE 正式リリース！6タイトルが即プレイ可能に</span>
+                </div>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-date">2026年3月13日 <span class="new-badge">NEW</span></div>
+                    <div class="news-title">🚀 NEXUS ARCADE グランドオープン！</div>
+                    <div class="news-excerpt">本日より、ブラウザですぐに遊べる6つのゲームを公開。スネーク、ブロック崩し、シューティングなど、名作をネオン風にリメイク。全ゲーム無料で遊べます！</div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-date">2026年3月13日 <span class="new-badge">NEW</span></div>
+                    <div class="news-title">🏅 ランキング機能実装</div>
+                    <div class="news-excerpt">各ゲームのハイスコアランキングを導入。世界中のプレイヤーとスコアを競い合おう。トップ10入りで特別バッジを獲得！</div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-date">2026年3月13日 <span class="new-badge">NEW</span></div>
+                    <div class="news-title">📱 スマホ対応強化</div>
+                    <div class="news-excerpt">タッチ操作に完全対応。iOS/Androidのブラウザからも快適にプレイ可能。通勤時間や休憩中に気軽にゲームを楽しめます。</div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-date">2026年3月12日</div>
+                    <div class="news-title">🎨 新テーマ「サイバーパンク」追加</div>
+                    <div class="news-excerpt">全ゲームにサイバーパンク風のビジュアルテーマを適用。ネオンカラーとグリッチエフェクトで未来的なゲーム体験を提供。</div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-date">2026年3月10日</div>
+                    <div class="news-title">⚡ パフォーマンス最適化</div>
+                    <div class="news-excerpt">ゲームエンジンを刷新し、60FPSでの動作を保証。低スペック端末でも快適に動作するよう最適化しました。</div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-date">2026年3月8日</div>
+                    <div class="news-title">🌟 ベータテスト完了</div>
+                    <div class="news-excerpt">1万名のベータテスターによる検証を完了。多数のバグ修正とUI改善を実施。ご協力いただいた皆様に感謝します。</div>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- フッター -->
+    
     <footer>
-        <div class="social-links">
-            <a href="#">📘</a>
-            <a href="#">🐦</a>
-            <a href="#">📸</a>
-            <a href="#">🎥</a>
-            <a href="#">💬</a>
-        </div>
-        <p>&copy; 2024 NEXUS GAMING. All rights reserved.</p>
+        <p>&copy; 2026 NEXUS ARCADE. All games are free to play!</p>
     </footer>
-
+    
+    <!-- ゲームモーダル -->
+    <div class="modal" id="gameModal">
+        <div class="game-container">
+            <div class="game-header">
+                <h2 id="gameTitle">GAME TITLE</h2>
+                <button class="close-btn" onclick="closeGame()">✕ 閉じる</button>
+            </div>
+            <canvas id="gameCanvas"></canvas>
+            <div class="game-controls">
+                <div class="control-group">
+                    <span class="score-display">SCORE: <span id="score">0</span></span>
+                </div>
+                <div class="control-group">
+                    <button class="control-btn" onclick="resetGame()">🔄 リセット</button>
+                    <button class="control-btn" onclick="togglePause()">⏸ ポーズ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        // ローダー
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1000);
-        });
-
-        // カウントアップアニメーション
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = parseInt(entry.target.getAttribute('data-target'));
-                    animateValue(entry.target, 0, target, 2000);
-                    observer.unobserve(entry.target);
+        let currentGame = null;
+        let gameLoop = null;
+        let score = 0;
+        let isPaused = false;
+        let canvas, ctx;
+        
+        function scrollToGames() {
+            document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function openGame(gameType) {
+            const modal = document.getElementById('gameModal');
+            const title = document.getElementById('gameTitle');
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // キャンバスサイズ設定
+            canvas.width = 1000;
+            canvas.height = 600;
+            
+            modal.classList.add('active');
+            score = 0;
+            isPaused = false;
+            updateScore();
+            
+            switch(gameType) {
+                case 'snake':
+                    title.textContent = '🐍 NEON SNAKE';
+                    initSnake();
+                    break;
+                case 'breakout':
+                    title.textContent = '🧱 CYBER BREAKOUT';
+                    initBreakout();
+                    break;
+                case 'shooter':
+                    title.textContent = '🚀 SPACE DEFENDER';
+                    initShooter();
+                    break;
+                case 'puzzle':
+                    title.textContent = '🧩 COLOR MATCH';
+                    initPuzzle();
+                    break;
+                case 'jump':
+                    title.textContent = '🏃 NEON JUMPER';
+                    initJump();
+                    break;
+                case 'typing':
+                    title.textContent = '⌨️ CODE RUSH';
+                    initTyping();
+                    break;
+            }
+        }
+        
+        function closeGame() {
+            const modal = document.getElementById('gameModal');
+            modal.classList.remove('active');
+            if (gameLoop) cancelAnimationFrame(gameLoop);
+            currentGame = null;
+        }
+        
+        function resetGame() {
+            if (currentGame) {
+                score = 0;
+                updateScore();
+                switch(currentGame) {
+                    case 'snake': initSnake(); break;
+                    case 'breakout': initBreakout(); break;
+                    case 'shooter': initShooter(); break;
+                    case 'puzzle': initPuzzle(); break;
+                    case 'jump': initJump(); break;
+                    case 'typing': initTyping(); break;
                 }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.stat-number').forEach(stat => {
-            observer.observe(stat);
-        });
-
-        function animateValue(obj, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = Math.floor(progress * (end - start) + start);
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
+            }
+        }
+        
+        function togglePause() {
+            isPaused = !isPaused;
+        }
+        
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+        
+        // ===== スネークゲーム =====
+        function initSnake() {
+            currentGame = 'snake';
+            const gridSize = 20;
+            const tileCount = canvas.width / gridSize;
+            let snake = [{x: 10, y: 10}];
+            let food = {x: 15, y: 15};
+            let dx = 0;
+            let dy = 0;
+            
+            document.onkeydown = (e) => {
+                if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -1; }
+                if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 1; }
+                if (e.key === 'ArrowLeft' && dx === 0) { dx = -1; dy = 0; }
+                if (e.key === 'ArrowRight' && dx === 0) { dx = 1; dy = 0; }
+            };
+            
+            function gameStep() {
+                if (isPaused) return;
+                
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // グリッド描画
+                ctx.strokeStyle = '#0f3460';
+                for (let i = 0; i < tileCount; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * gridSize, 0);
+                    ctx.lineTo(i * gridSize, canvas.height);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * gridSize);
+                    ctx.lineTo(canvas.width, i * gridSize);
+                    ctx.stroke();
+                }
+                
+                const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+                
+                // 壁衝突
+                if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= canvas.height / gridSize) {
+                    resetGame();
+                    return;
+                }
+                
+                // 自己衝突
+                for (let segment of snake) {
+                    if (head.x === segment.x && head.y === segment.y) {
+                        resetGame();
+                        return;
+                    }
+                }
+                
+                snake.unshift(head);
+                
+                // 餌を食べた
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    updateScore();
+                    food = {
+                        x: Math.floor(Math.random() * tileCount),
+                        y: Math.floor(Math.random() * (canvas.height / gridSize))
+                    };
+                } else {
+                    snake.pop();
+                }
+                
+                // 餌描画
+                ctx.fillStyle = '#ff0066';
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#ff0066';
+                ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+                ctx.shadowBlur = 0;
+                
+                // スネーク描画
+                snake.forEach((segment, index) => {
+                    ctx.fillStyle = index === 0 ? '#00ffff' : '#00aaaa';
+                    ctx.shadowBlur = index === 0 ? 20 : 10;
+                    ctx.shadowColor = '#00ffff';
+                    ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+                });
+                ctx.shadowBlur = 0;
+            }
+            
+            function loop() {
+                gameStep();
+                gameLoop = setTimeout(() => requestAnimationFrame(loop), 100);
+            }
+            loop();
+        }
+        
+        // ===== ブロック崩し =====
+        function initBreakout() {
+            currentGame = 'breakout';
+            let paddle = { x: 400, y: 550, width: 120, height: 15 };
+            let ball = { x: 500, y: 300, dx: 4, dy: -4, radius: 8 };
+            let bricks = [];
+            const brickRowCount = 5;
+            const brickColumnCount = 10;
+            const brickWidth = 80;
+            const brickHeight = 20;
+            const brickPadding = 10;
+            const brickOffsetTop = 60;
+            const brickOffsetLeft = 35;
+            
+            // ブロック初期化
+            for (let c = 0; c < brickColumnCount; c++) {
+                for (let r = 0; r < brickRowCount; r++) {
+                    bricks.push({
+                        x: c * (brickWidth + brickPadding) + brickOffsetLeft,
+                        y: r * (brickHeight + brickPadding) + brickOffsetTop,
+                        status: 1,
+                        color: `hsl(${r * 60}, 100%, 50%)`
+                    });
+                }
+            }
+            
+            canvas.onmousemove = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                paddle.x = (e.clientX - rect.left) * scaleX - paddle.width / 2;
+            };
+            
+            canvas.ontouchmove = (e) => {
+                e.preventDefault();
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                paddle.x = (e.touches[0].clientX - rect.left) * scaleX - paddle.width / 2;
+            };
+            
+            function gameStep() {
+                if (isPaused) return;
+                
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // ボール移動
+                ball.x += ball.dx;
+                ball.y += ball.dy;
+                
+                // 壁衝突
+                if (ball.x + ball.dx > canvas.width - ball.radius || ball.x + ball.dx < ball.radius) {
+                    ball.dx = -ball.dx;
+                }
+                if (ball.y + ball.dy < ball.radius) {
+                    ball.dy = -ball.dy;
+                }
+                
+                // ゲームオーバー
+                if (ball.y > canvas.height) {
+                    resetGame();
+                    return;
+                }
+                
+                // パドル衝突
+                if (ball.y + ball.radius > paddle.y && 
+                    ball.x > paddle.x && 
+                    ball.x < paddle.x + paddle.width) {
+                    ball.dy = -ball.dy;
+                    // パドルの位置で角度変化
+                    let hitPos = (ball.x - paddle.x) / paddle.width;
+                    ball.dx = 8 * (hitPos - 0.5);
+                }
+                
+                // ブロック描画・衝突
+                let activeBricks = 0;
+                bricks.forEach(brick => {
+                    if (brick.status === 1) {
+                        activeBricks++;
+                        ctx.fillStyle = brick.color;
+                        ctx.fillRect(brick.x, brick.y, brickWidth, brickHeight);
+                        
+                        if (ball.x > brick.x && ball.x < brick.x + brickWidth &&
+                            ball.y > brick.y && ball.y < brick.y + brickHeight) {
+                            ball.dy = -ball.dy;
+                            brick.status = 0;
+                            score += 5;
+                            updateScore();
+                        }
+                    }
+                });
+                
+                if (activeBricks === 0) {
+                    resetGame();
+                    return;
+                }
+                
+                // パドル描画
+                ctx.fillStyle = '#00ffff';
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#00ffff';
+                ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+                
+                // ボール描画
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+                ctx.closePath();
+                ctx.shadowBlur = 0;
+            }
+            
+            function loop() {
+                gameStep();
+                gameLoop = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+        
+        // ===== シューティング =====
+        function initShooter() {
+            currentGame = 'shooter';
+            let player = { x: 500, y: 500, width: 40, height: 40 };
+            let bullets = [];
+            let enemies = [];
+            let enemySpawnTimer = 0;
+            
+            document.onkeydown = (e) => {
+                if (e.key === 'ArrowLeft') player.x -= 15;
+                if (e.key === 'ArrowRight') player.x += 15;
+                if (e.key === ' ') {
+                    bullets.push({ x: player.x + 20, y: player.y, speed: 10 });
                 }
             };
-            window.requestAnimationFrame(step);
-        }
-
-        // パララックス効果
-        document.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.float-card');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
             
-            cards.forEach((card, index) => {
-                const speed = (index + 1) * 20;
-                const xOffset = (window.innerWidth / 2 - e.clientX) / speed;
-                const yOffset = (window.innerHeight / 2 - e.clientY) / speed;
-                card.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-            });
-        });
-
-        // スクロール時のヘッダー効果
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            const header = document.querySelector('header');
+            canvas.onmousemove = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                player.x = (e.clientX - rect.left) * scaleX - 20;
+            };
             
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
+            canvas.onclick = () => {
+                bullets.push({ x: player.x + 20, y: player.y, speed: 10 });
+            };
+            
+            function gameStep() {
+                if (isPaused) return;
+                
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // 星背景
+                ctx.fillStyle = '#fff';
+                for (let i = 0; i < 50; i++) {
+                    ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+                }
+                
+                // 敵生成
+                enemySpawnTimer++;
+                if (enemySpawnTimer > 60) {
+                    enemies.push({
+                        x: Math.random() * (canvas.width - 40),
+                        y: -40,
+                        width: 40,
+                        height: 40,
+                        speed: 2 + Math.random() * 2
+                    });
+                    enemySpawnTimer = 0;
+                }
+                
+                // プレイヤー描画
+                ctx.fillStyle = '#00ffff';
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#00ffff';
+                ctx.beginPath();
+                ctx.moveTo(player.x + 20, player.y);
+                ctx.lineTo(player.x, player.y + 40);
+                ctx.lineTo(player.x + 40, player.y + 40);
+                ctx.closePath();
+                ctx.fill();
+                
+                // 弾処理
+                bullets = bullets.filter(bullet => {
+                    bullet.y -= bullet.speed;
+                    ctx.fillStyle = '#ffff00';
+                    ctx.fillRect(bullet.x - 2, bullet.y, 4, 10);
+                    return bullet.y > 0;
+                });
+                
+                // 敵処理
+                enemies = enemies.filter(enemy => {
+                    enemy.y += enemy.speed;
+                    
+                    // 敵描画
+                    ctx.fillStyle = '#ff0066';
+                    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+                    
+                    // 衝突判定（弾）
+                    for (let bullet of bullets) {
+                        if (bullet.x > enemy.x && bullet.x < enemy.x + enemy.width &&
+                            bullet.y > enemy.y && bullet.y < enemy.y + enemy.height) {
+                            score += 10;
+                            updateScore();
+                            return false;
+                        }
+                    }
+                    
+                    // 衝突判定（プレイヤー）
+                    if (enemy.y + enemy.height > player.y &&
+                        enemy.x < player.x + 40 &&
+                        enemy.x + enemy.width > player.x) {
+                        resetGame();
+                        return false;
+                    }
+                    
+                    return enemy.y < canvas.height;
+                });
+                
+                ctx.shadowBlur = 0;
             }
-            lastScroll = currentScroll;
-        });
-
-        // ゲームカードのクリック効果
-        document.querySelectorAll('.game-card').forEach(card => {
-            card.addEventListener('click', function() {
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                    alert('ゲームを起動します...');
-                }, 200);
-            });
-        });
+            
+            function loop() {
+                gameStep();
+                gameLoop = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+        
+        // ===== パズル =====
+        function initPuzzle() {
+            currentGame = 'puzzle';
+            let grid = [];
+            const cols = 10;
+            const rows = 8;
+            const cellSize = 50;
+            const colors = ['#ff0066', '#00ffff', '#ffff00', '#00ff00', '#ff00ff'];
+            let selected = null;
+            
+            // グリッド初期化
+            for (let i = 0; i < cols; i++) {
+                grid[i] = [];
+                for (let j = 0; j < rows; j++) {
+                    grid[i][j] = Math.floor(Math.random() * colors.length);
+                }
+            }
+            
+            canvas.onclick = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const x = Math.floor(((e.clientX - rect.left) * scaleX - 250) / cellSize);
+                const y = Math.floor(((e.clientY - rect.top) * scaleY - 100) / cellSize);
+                
+                if (x >= 0 && x < cols && y >= 0 && y < rows) {
+                    if (!selected) {
+                        selected = {x, y};
+                    } else {
+                        // 隣接チェック
+                        const dx = Math.abs(x - selected.x);
+                        const dy = Math.abs(y - selected.y);
+                        if (dx + dy === 1) {
+                            // スワップ
+                            let temp = grid[x][y];
+                            grid[x][y] = grid[selected.x][selected.y];
+                            grid[selected.x][selected.y] = temp;
+                            
+                            // マッチチェック
+                            checkMatches();
+                        }
+                        selected = null;
+                    }
+                }
+            };
+            
+            function checkMatches() {
+                let matched = [];
+                
+                // 横チェック
+                for (let j = 0; j < rows; j++) {
+                    for (let i = 0; i < cols - 2; i++) {
+                        if (grid[i][j] === grid[i+1][j] && grid[i][j] === grid[i+2][j]) {
+                            matched.push({x: i, y: j}, {x: i+1, y: j}, {x: i+2, y: j});
+                        }
+                    }
+                }
+                
+                // 縦チェック
+                for (let i = 0; i < cols; i++) {
+                    for (let j = 0; j < rows - 2; j++) {
+                        if (grid[i][j] === grid[i][j+1] && grid[i][j] === grid[i][j+2]) {
+                            matched.push({x: i, y: j}, {x: i, y: j+1}, {x: i, y: j+2});
+                        }
+                    }
+                }
+                
+                if (matched.length > 0) {
+                    score += matched.length * 10;
+                    updateScore();
+                    // 削除して新規生成
+                    matched.forEach(m => {
+                        grid[m.x][m.y] = Math.floor(Math.random() * colors.length);
+                    });
+                }
+            }
+            
+            function gameStep() {
+                if (isPaused) return;
+                
+                ctx.fillStyle = '#1a1a2e';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // グリッド描画
+                for (let i = 0; i < cols; i++) {
+                    for (let j = 0; j < rows; j++) {
+                        const x = 250 + i * cellSize;
+                        const y = 100 + j * cellSize;
+                        
+                        ctx.fillStyle = colors[grid[i][j]];
+                        if (selected && selected.x === i && selected.y === j) {
+                            ctx.shadowBlur = 30;
+                            ctx.shadowColor = '#fff';
+                        } else {
+                            ctx.shadowBlur = 10;
+                            ctx.shadowColor = colors[grid[i][j]];
+                        }
+                        
+                        ctx.fillRect(x + 2, y + 2, cellSize - 4, cellSize - 4);
+                    }
+                }
+                ctx.shadowBlur = 0;
+                
+                // 説明
+                ctx.fillStyle = '#fff';
+                ctx.font = '20px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('隣り合うブロックをクリックしてスワップ！', 500, 550);
+            }
+            
+            function loop() {
+                gameStep();
+                gameLoop = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+        
+        // ===== ジャンプゲーム =====
+        function initJump() {
+            currentGame = 'jump';
+            let player = { x: 100, y: 400, width: 40, height: 40, dy: 0, jumping: false };
+            let obstacles = [];
+            let ground = 450;
+            let gameSpeed = 5;
+            let obstacleTimer = 0;
+            
+            const jump = () => {
+                if (!player.jumping) {
+                    player.dy = -15;
+                    player.jumping = true;
+                }
+            };
+            
+            document.onkeydown = (e) => {
+                if (e.code === 'Space') jump();
+            };
+            canvas.onclick = jump;
+            canvas.ontouchstart = (e) => { e.preventDefault(); jump(); };
+            
+            function gameStep() {
+                if (isPaused) return;
+                
+                ctx.fillStyle = '#0a0a0f';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // 地面
+                ctx.fillStyle = '#00ffff';
+                ctx.fillRect(0, ground, canvas.width, 150);
+                
+                // 重力
+                player.dy += 0.8;
+                player.y += player.dy;
+                
+                if (player.y > ground - player.height) {
+                    player.y = ground - player.height;
+                    player.dy = 0;
+                    player.jumping = false;
+                }
+                
+                // プレイヤー描画
+                ctx.fillStyle = '#ff00ff';
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#ff00ff';
+                ctx.fillRect(player.x, player.y, player.width, player.height);
+                
+                // 障害物生成
+                obstacleTimer++;
+                if (obstacleTimer > 100) {
+                    obstacles.push({
+                        x: canvas.width,
+                        y: ground - 40 - Math.random() * 100,
+                        width: 30,
+                        height: 40 + Math.random() * 60
+                    });
+                    obstacleTimer = 0;
+                }
+                
+                // 障害物処理
+                obstacles = obstacles.filter(obs => {
+                    obs.x -= gameSpeed;
+                    
+                    // 描画
+                    ctx.fillStyle = '#ff0066';
+                    ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+                    
+                    // 衝突判定
+                    if (player.x < obs.x + obs.width &&
+                        player.x + player.width > obs.x &&
+                        player.y < obs.y + obs.height &&
+                        player.y + player.height > obs.y) {
+                        resetGame();
+                        return false;
+                    }
+                    
+                    // 通過でスコア
+                    if (obs.x + obs.width < player.x && !obs.passed) {
+                        obs.passed = true;
+                        score += 1;
+                        updateScore();
+                    }
+                    
+                    return obs.x > -obs.width;
+                });
+                
+                ctx.shadowBlur = 0;
+                
+                // スピードアップ
+                if (score > 0 && score % 10 === 0) {
+                    gameSpeed = 5 + Math.floor(score / 10);
+                }
+            }
+            
+            function loop() {
+                gameStep();
+                gameLoop = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+        
+        // ===== タイピングゲーム =====
+        function initTyping() {
+            currentGame = 'typing';
+            let words = ['CODE', 'GAME', 'NEXUS', 'HACK', 'DATA', 'CYBER', 'NEON', 'ARCADE', 'PIXEL', 'QUEST'];
+            let fallingWords = [];
+            let spawnTimer = 0;
+            
+            document.onkeydown = (e) => {
+                const key = e.key.toUpperCase();
+                for (let i = fallingWords.length - 1; i >= 0; i--) {
+                    if (fallingWords[i].word[0] === key) {
+                        fallingWords[i].word = fallingWords[i].word.slice(1);
+                        if (fallingWords[i].word.length === 0) {
+                            fallingWords.splice(i, 1);
+                            score += 10;
+                            updateScore();
+                        }
+                        break;
+                    }
+                }
+            };
+            
+            function gameStep() {
+                if (isPaused) return;
+                
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // グリッド背景
+                ctx.strokeStyle = '#0f3460';
+                ctx.lineWidth = 1;
+                for (let i = 0; i < canvas.width; i += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(i, 0);
+                    ctx.lineTo(i, canvas.height);
+                    ctx.stroke();
+                }
+                
+                // 単語生成
+                spawnTimer++;
+                if (spawnTimer > 80) {
+                    const word = words[Math.floor(Math.random() * words.length)];
+                    fallingWords.push({
+                        word: word,
+                        x: Math.random() * (canvas.width - 100) + 50,
+                        y: -30,
+                        speed: 1 + Math.random() * 2
+                    });
+                    spawnTimer = 0;
+                }
+                
+                // 単語処理
+                fallingWords = fallingWords.filter(fw => {
+                    fw.y += fw.speed;
+                    
+                    // 描画
+                    ctx.font = 'bold 30px Arial';
+                    ctx.textAlign = 'center';
+                    
+                    // 最初の文字をハイライト
+                    if (fw.word.length > 0) {
+                        const firstChar = fw.word[0];
+                        const restChars = fw.word.slice(1);
+                        
+                        ctx.fillStyle = '#ffff00';
+                        ctx.shadowBlur = 20;
+                        ctx.shadowColor = '#ffff00';
+                        ctx.fillText(firstChar, fw.x - ctx.measureText(restChars).width / 2, fw.y);
+                        
+                        ctx.fillStyle = '#00ffff';
+                        ctx.shadowBlur = 10;
+                        ctx.shadowColor = '#00ffff';
+                        ctx.fillText(restChars, fw.x + ctx.measureText(firstChar).width / 2, fw.y);
+                    }
+                    
+                    // ゲームオーバー判定
+                    if (fw.y > canvas.height) {
+                        resetGame();
+                        return false;
+                    }
+                    
+                    return true;
+                });
+                
+                ctx.shadowBlur = 0;
+                
+                // 説明
+                ctx.fillStyle = '#fff';
+                ctx.font = '20px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('落ちてくる単語の最初の文字をタイプ！', 500, 50);
+            }
+            
+            function loop() {
+                gameStep();
+                gameLoop = requestAnimationFrame(loop);
+            }
+            loop();
+        }
     </script>
 </body>
 </html>
