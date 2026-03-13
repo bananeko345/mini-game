@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS GAMING - 次世代ゲームポータル</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* グリッチエフェクト背景 */
+        .glitch-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a0b2e 50%, #16213e 100%);
+        }
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+        
+        /* ヘッダー */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            position: relative;
+            padding: 10px 20px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::before {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+        
+        /* ヒーローセクション */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .glitch-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 6rem;
+            font-weight: 900;
+            position: relative;
+            text-shadow: 
+                0.05em 0 0 rgba(255, 0, 0, 0.75),
+                -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+            14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+            15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+            49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+            50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+            99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+            100% { text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75); }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #888;
+            letter-spacing: 10px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 20px 60px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            color: #000;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(255, 0, 255, 0.8);
+        }
+        
+        /* フローティングカード */
+        .floating-cards {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .float-card {
+            position: absolute;
+            width: 200px;
+            height: 280px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        
+        .float-card:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .float-card:nth-child(2) { top: 60%; right: 10%; animation-delay: 2s; }
+        .float-card:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 4s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        /* ゲームセクション */
+        .games-section {
+            padding: 100px 50px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, transparent);
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .game-card:hover::before {
+            left: 100%;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ffff;
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.03) 20px
+            );
+            animation: scan 8s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .game-info {
+            padding: 20px;
+        }
+        
+        .game-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #00ffff;
+        }
+        
+        .game-meta {
+            display: flex;
+            gap: 15px;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .game-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00ffff;
+        }
+        
+        /* インタラクティブ統計セクション */
+        .stats-section {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, transparent, rgba(0,255,255,0.05), transparent);
+        }
+        
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .stat-box:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #888;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* ニュースセクション */
+        .news-section {
+            padding: 100px 50px;
+        }
+        
+        .news-ticker {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ticker-content {
+            display: flex;
+            animation: ticker 20s linear infinite;
+            white-space: nowrap;
+        }
+        
+        .ticker-item {
+            padding: 0 50px;
+            color: #00ffff;
+            font-weight: 700;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* フッター */
+        footer {
+            padding: 50px;
+            background: rgba(0,0,0,0.5);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.5rem;
+        }
+        
+        .social-links a:hover {
+            border-color: #00ffff;
+            color: #00ffff;
+            transform: rotate(360deg);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .glitch-text { font-size: 3rem; }
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
+            nav ul { display: none; }
+        }
+        
+        /* ローディングアニメーション */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0f;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #00ffff;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ローダー -->
+    <div class="loader" id="loader">
+        <div class="loader-text">LOADING...</div>
+    </div>
+
+    <!-- 背景 -->
+    <div class="glitch-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="logo">NEXUS</div>
+        <nav>
+            <ul>
+                <li><a href="#games">ゲーム</a></li>
+                <li><a href="#news">ニュース</a></li>
+                <li><a href="#esports">eスポーツ</a></li>
+                <li><a href="#community">コミュニティ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="floating-cards">
+            <div class="float-card">🎮</div>
+            <div class="float-card">⚔️</div>
+            <div class="float-card">🏆</div>
+        </div>
+        <div class="hero-content">
+            <h1 class="glitch-text">GAME ON</h1>
+            <p class="hero-subtitle">次世代ゲーム体験へようこそ</p>
+            <a href="#games" class="cta-button">プレイ開始</a>
+        </div>
+    </section>
+
+    <!-- ゲームセクション -->
+    <section class="games-section" id="games">
+        <h2 class="section-title">トレンドゲーム</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="game-image">🌌</div>
+                <div class="game-info">
+                    <h3 class="game-title">COSMIC WARFARE</h3>
+                    <div class="game-meta">
+                        <span>👥 2.5M プレイヤー</span>
+                        <span>⭐ 4.9</span>
+                    </div>
+                    <span class="game-tag">FPS</span>
+                    <span class="game-tag">マルチプレイヤー</span>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image">⚔️</div>
+                <div class="game-info">
+                    <h3 class="game-title">DRAGON'S LEGACY</h3>
+                    <div class="game-meta">
+                        <span>👥 1.8M プレイヤー</span>
+                        <span>⭐ 4.8</span>
+                    </div>
+                    <span class="game-tag">RPG</span>
+                    <span class="game-tag">オープンワールド</span>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image">🏎️</div>
+                <div class="game-info">
+                    <h3 class="game-title">VELOCITY X</h3>
+                    <div class="game-meta">
+                        <span>👥 900K プレイヤー</span>
+                        <span>⭐ 4.7</span>
+                    </div>
+                    <span class="game-tag">レーシング</span>
+                    <span class="game-tag">VR対応</span>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image">🧙</div>
+                <div class="game-info">
+                    <h3 class="game-title">MYSTIC ARENA</h3>
+                    <div class="game-meta">
+                        <span>👥 3.2M プレイヤー</span>
+                        <span>⭐ 4.9</span>
+                    </div>
+                    <span class="game-tag">MOBA</span>
+                    <span class="game-tag">戦略</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 統計セクション -->
+    <section class="stats-section">
+        <h2 class="section-title">プラットフォーム統計</h2>
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number" data-target="10">0</div>
+                <div class="stat-label">M+ プレイヤー</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" data-target="500">0</div>
+                <div class="stat-label">+ ゲームタイトル</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" data-target="99">0</div>
+                <div class="stat-label">% アップタイム</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" data-target="24">0</div>
+                <div class="stat-label">/7 サポート</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ニュースセクション -->
+    <section class="news-section" id="news">
+        <h2 class="section-title">最新ニュース</h2>
+        <div class="news-ticker">
+            <div class="ticker-content">
+                <span class="ticker-item">🔥 COSMIC WARFARE シーズン2開始！新マップ「ネオン東京」追加</span>
+                <span class="ticker-item">🏆 世界大会2024 優勝チームが決定！賞金総額500万ドル</span>
+                <span class="ticker-item">🎮 VR対応タイトルが30%オフ！週末セール開催中</span>
+                <span class="ticker-item">🌟 新規インディーゲーム「Pixel Odyssey」が話題沸騰</span>
+                <span class="ticker-item">🔧 メンテナンス完了：サーバー性能が30%向上</span>
+                <span class="ticker-item">🔥 COSMIC WARFARE シーズン2開始！新マップ「ネオン東京」追加</span>
+                <span class="ticker-item">🏆 世界大会2024 優勝チームが決定！賞金総額500万ドル</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="social-links">
+            <a href="#">📘</a>
+            <a href="#">🐦</a>
+            <a href="#">📸</a>
+            <a href="#">🎥</a>
+            <a href="#">💬</a>
+        </div>
+        <p>&copy; 2024 NEXUS GAMING. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ローダー
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // カウントアップアニメーション
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateValue(entry.target, 0, target, 2000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            observer.observe(stat);
+        });
+
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // パララックス効果
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.float-card');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            cards.forEach((card, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (window.innerWidth / 2 - e.clientX) / speed;
+                const yOffset = (window.innerHeight / 2 - e.clientY) / speed;
+                card.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        // スクロール時のヘッダー効果
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.querySelector('header');
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // ゲームカードのクリック効果
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    alert('ゲームを起動します...');
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
